@@ -1,0 +1,210 @@
+{
+  "isUpdate": true,
+  "jobs": [
+    {
+      "professionCode": "X2-10-07-14",
+      "professionName": "家具设计师",
+      "id": 1
+    },
+    {
+      "professionCode": "6-26-01-08",
+      "professionName": "食品检验工",
+      "id": 8
+    },
+    {
+      "professionCode": "6-26-01-01",
+      "professionName": "化学检验工",
+      "id": 11
+    },
+    {
+      "professionCode": "4-01-02-01",
+      "professionName": "营销师",
+      "id": 12
+    },
+    {
+      "professionCode": "4-01-01-01",
+      "professionName": "营业员",
+      "id": 13
+    },
+    {
+      "professionCode": "X2-10-07-12",
+      "professionName": "模具设计师",
+      "id": 14
+    },
+    {
+      "professionCode": "X2-02-28-05",
+      "professionName": "品酒师",
+      "id": 16
+    },
+    {
+      "professionCode": "X2-02-28-02",
+      "professionName": "酿酒师",
+      "id": 17
+    },
+    {
+      "professionCode": "X2-02-06-05",
+      "professionName": "化妆品配方师",
+      "id": 18
+    },
+    {
+      "professionCode": "6-03-17-08",
+      "professionName": "化妆品配制工",
+      "id": 19
+    },
+    {
+      "professionCode": "6-12-02-01",
+      "professionName": "食糖制造工",
+      "id": 20
+    },
+    {
+      "professionCode": "6-12-06-01",
+      "professionName": "糕点、面包烘焙工",
+      "id": 24
+    },
+    {
+      "professionCode": "6-26-01-08",
+      "professionName": "游戏测试员",
+      "id": 25
+    },
+    {
+      "professionCode": "X2-02-28-04",
+      "professionName": "乳品评鉴师",
+      "id": 26
+    },
+    {
+      "professionCode": "2-10-07-10",
+      "professionName": "玩具设计师",
+      "id": 28
+    },
+    {
+      "professionCode": "4-07-06-01",
+      "professionName": "眼镜验光员",
+      "id": 29
+    },
+    {
+      "professionCode": "4-07-06-02",
+      "professionName": "眼镜定配工",
+      "id": 30
+    },
+    {
+      "professionCode": "4-07-10-02",
+      "professionName": "家用电器产品维修工",
+      "id": 31
+    },
+    {
+      "professionCode": "X2-10-07-15",
+      "professionName": "动画绘制员",
+      "id": 32
+    },
+    {
+      "professionCode": "6-21-07-01",
+      "professionName": "工艺品雕刻工",
+      "id": 33
+    },
+    {
+      "professionCode": "X4-07-10-07",
+      "professionName": "钢琴调律师",
+      "id": 34
+    },
+    {
+      "professionCode": "6-21-08-01",
+      "professionName": "装饰美工",
+      "id": 35
+    },
+    {
+      "professionCode": "X2-10-07-18",
+      "professionName": "陶瓷工艺师",
+      "id": 36
+    },
+    {
+      "professionCode": "4-03-03-01",
+      "professionName": "调酒师",
+      "id": 37
+    },
+    {
+      "professionCode": "X2-10-07-24",
+      "professionName": "鞋类设计师",
+      "id": 38
+    },
+    {
+      "professionCode": "X2-10-07-17",
+      "professionName": "陶瓷工艺设计师",
+      "id": 39
+    },
+    {
+      "professionCode": "X2-10-07-20",
+      "professionName": "皮具设计师 ",
+      "id": 40
+    },
+    {
+      "professionCode": "X2-10-07-11",
+      "professionName": "首饰设计师",
+      "id": 41
+    },
+    {
+      "professionCode": "4-08-08-07",
+      "professionName": "室内装饰设计师",
+      "id": 42
+    },
+    {
+      "professionCode": "X2-02-14-04",
+      "professionName": "照明设计师",
+      "id": 43
+    },
+    {
+      "professionCode": "X2-10-07-19",
+      "professionName": "地毯设计师",
+      "id": 44
+    },
+    {
+      "professionCode": "X2-10-07-09",
+      "professionName": "包装设计师",
+      "id": 46
+    },
+    {
+      "professionCode": "6-12-04-02",
+      "professionName": "啤酒酿造工",
+      "id": 47
+    },
+    {
+      "professionCode": "X2-02-06-04",
+      "professionName": "调香师",
+      "id": 48
+    },
+    {
+      "professionCode": "6-03-17-06",
+      "professionName": "香料制造工",
+      "id": 49
+    },
+    {
+      "professionCode": "6-03-17-07",
+      "professionName": "香精配制工",
+      "id": 50
+    },
+    {
+      "professionCode": null,
+      "professionName": "游戏管理员",
+      "id": 51
+    },
+    {
+      "professionCode": null,
+      "professionName": "植物培育员",
+      "id": 52
+    },
+    {
+      "professionCode": null,
+      "professionName": "质量督导员",
+      "id": 53
+    },
+    {
+      "professionCode": null,
+      "professionName": "保育员",
+      "id": 54
+    },
+    {
+      "professionCode": null,
+      "professionName": "国家职业资格",
+      "id": 55
+    }
+  ]
+}
