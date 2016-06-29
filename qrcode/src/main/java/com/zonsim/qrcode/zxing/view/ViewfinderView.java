@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.zonsim.qrcode.zxing;
+package com.zonsim.qrcode.zxing.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

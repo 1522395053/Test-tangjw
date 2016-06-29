@@ -53,7 +53,7 @@ public final class TextResultHandler extends ResultHandler {
   @Override
   public void handleButtonPress(int index) {
     String text = getResult().getDisplayResult();
-    switch (index) {
+    /*switch (index) {
       case 0:
         webSearch(text);
         break;
@@ -61,12 +61,12 @@ public final class TextResultHandler extends ResultHandler {
         shareByEmail(text);
         break;
       case 2:
-        shareBySMS(text);
+//        shareBySMS(text);
         break;
       case 3:
         openURL(fillInCustomSearchURL(text));
         break;
-    }
+    }*/
   }
 
   @Override

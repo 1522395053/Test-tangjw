@@ -18,6 +18,7 @@ package com.zonsim.qrcode.zxing;
 
 import com.google.zxing.ResultPoint;
 import com.google.zxing.ResultPointCallback;
+import com.zonsim.qrcode.zxing.view.ViewfinderView;
 
 final class ViewfinderResultPointCallback implements ResultPointCallback {
 

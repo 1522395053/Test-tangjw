@@ -22,7 +22,6 @@ import android.app.Activity;
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.URIParsedResult;
 import com.zonsim.qrcode.R;
-import com.zonsim.qrcode.zxing.LocaleManager;
 
 import java.util.Locale;
 
@@ -51,9 +50,9 @@ public final class URIResultHandler extends ResultHandler {
 
   @Override
   public int getButtonCount() {
-    if (LocaleManager.isBookSearchUrl(((URIParsedResult) getResult()).getURI())) {
+    /*if (LocaleManager.isBookSearchUrl(((URIParsedResult) getResult()).getURI())) {
       return buttons.length;
-    }
+    }*/
     return buttons.length - 1;
   }
 
@@ -76,13 +75,13 @@ public final class URIResultHandler extends ResultHandler {
         openURL(uri);
         break;
       case 1:
-        shareByEmail(uri);
+//        shareByEmail(uri);
         break;
       case 2:
-        shareBySMS(uri);
+//        shareBySMS(uri);
         break;
       case 3:
-        searchBookContents(uri);
+//        searchBookContents(uri);
         break;
     }
   }

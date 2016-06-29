@@ -21,9 +21,7 @@ import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.util.Log;
 
@@ -33,10 +31,6 @@ import com.google.zxing.client.result.ParsedResultType;
 import com.google.zxing.client.result.ResultParser;
 import com.zonsim.qrcode.R;
 import com.zonsim.qrcode.zxing.Contents;
-import com.zonsim.qrcode.zxing.Intents;
-import com.zonsim.qrcode.zxing.LocaleManager;
-import com.zonsim.qrcode.zxing.PreferencesActivity;
-import com.zonsim.qrcode.zxing.book.SearchBookContentsActivity;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -340,86 +334,8 @@ public abstract class ResultHandler {
     intent.setType("text/plain");
     launchIntent(intent);
   }
-
-  final void shareBySMS(String contents) {
-    sendSMSFromUri("smsto:", contents);
-  }
-
-  final void sendSMS(String phoneNumber, String body) {
-    sendSMSFromUri("smsto:" + phoneNumber, body);
-  }
-
-  final void sendSMSFromUri(String uri, String body) {
-    Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(uri));
-    putExtra(intent, "sms_body", body);
-    // Exit the app once the SMS is sent
-    intent.putExtra("compose_mode", true);
-    launchIntent(intent);
-  }
-
-  final void sendMMS(String phoneNumber, String subject, String body) {
-    sendMMSFromUri("mmsto:" + phoneNumber, subject, body);
-  }
-
-  final void sendMMSFromUri(String uri, String subject, String body) {
-    Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(uri));
-    // The Messaging app needs to see a valid subject or else it will treat this an an SMS.
-    if (subject == null || subject.isEmpty()) {
-      putExtra(intent, "subject", activity.getString(R.string.msg_default_mms_subject));
-    } else {
-      putExtra(intent, "subject", subject);
-    }
-    putExtra(intent, "sms_body", body);
-    intent.putExtra("compose_mode", true);
-    launchIntent(intent);
-  }
-
-  final void dialPhone(String phoneNumber) {
-    launchIntent(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber)));
-  }
-
-  final void dialPhoneFromUri(String uri) {
-    launchIntent(new Intent(Intent.ACTION_DIAL, Uri.parse(uri)));
-  }
-
-  final void openMap(String geoURI) {
-    launchIntent(new Intent(Intent.ACTION_VIEW, Uri.parse(geoURI)));
-  }
-
-  /**
-   * Do a geo search using the address as the query.
-   *
-   * @param address The address to find
-   */
-  final void searchMap(String address) {
-    launchIntent(new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + Uri.encode(address))));
-  }
-
-  final void getDirections(double latitude, double longitude) {
-    launchIntent(new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google." +
-        LocaleManager.getCountryTLD(activity) + "/maps?f=d&daddr=" + latitude + ',' + longitude)));
-  }
-
-  // Uses the mobile-specific version of Product Search, which is formatted for small screens.
-  final void openProductSearch(String upc) {
-    Uri uri = Uri.parse("http://www.google." + LocaleManager.getProductSearchCountryTLD(activity) +
-        "/m/products?q=" + upc + "&source=zxing");
-    launchIntent(new Intent(Intent.ACTION_VIEW, uri));
-  }
-
-  final void openBookSearch(String isbn) {
-    Uri uri = Uri.parse("http://books.google." + LocaleManager.getBookSearchCountryTLD(activity) +
-        "/books?vid=isbn" + isbn);
-    launchIntent(new Intent(Intent.ACTION_VIEW, uri));
-  }
-
-  final void searchBookContents(String isbnOrUrl) {
-    Intent intent = new Intent(Intents.SearchBookContents.ACTION);
-    intent.setClassName(activity, SearchBookContentsActivity.class.getName());
-    putExtra(intent, Intents.SearchBookContents.ISBN, isbnOrUrl);
-    launchIntent(intent);
-  }
-
+  
+ 
   final void openURL(String url) {
     // Strangely, some Android browsers don't seem to register to handle HTTP:// or HTTPS://.
     // Lower-case these as it should always be OK to lower-case these schemes.
@@ -478,12 +394,12 @@ public abstract class ResultHandler {
   }
 
   private String parseCustomSearchURL() {
-    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+    /*SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
     String customProductSearch = prefs.getString(PreferencesActivity.KEY_CUSTOM_PRODUCT_SEARCH,
         null);
     if (customProductSearch != null && customProductSearch.trim().isEmpty()) {
       return null;
-    }
+    }*/
     return customProductSearch;
   }
 

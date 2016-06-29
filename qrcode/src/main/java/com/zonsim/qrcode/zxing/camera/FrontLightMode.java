@@ -16,10 +16,6 @@
 
 package com.zonsim.qrcode.zxing.camera;
 
-import android.content.SharedPreferences;
-
-import com.zonsim.qrcode.zxing.PreferencesActivity;
-
 /**
  * Enumerates settings of the preference controlling the front light.
  */
@@ -36,8 +32,8 @@ public enum FrontLightMode {
     return modeString == null ? OFF : valueOf(modeString);
   }
 
-  public static FrontLightMode readPref(SharedPreferences sharedPrefs) {
+  /*public static FrontLightMode readPref(SharedPreferences sharedPrefs) {
     return parse(sharedPrefs.getString(PreferencesActivity.KEY_FRONT_LIGHT_MODE, OFF.toString()));
-  }
+  }*/
 
 }
