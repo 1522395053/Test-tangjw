@@ -444,7 +444,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	
 	/**
 	 * Uri 转 path
-	 *  
+	 * 
 	 * @param uri
 	 * @return
 	 */
