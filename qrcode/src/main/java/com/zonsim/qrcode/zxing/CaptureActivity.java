@@ -29,7 +29,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.SurfaceHolder;
@@ -41,19 +40,17 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
-import com.google.zxing.ChecksumException;
 import com.google.zxing.DecodeHintType;
-import com.google.zxing.FormatException;
-import com.google.zxing.NotFoundException;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
 import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.Reader;
 import com.google.zxing.Result;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.common.HybridBinarizer;
-import com.google.zxing.qrcode.QRCodeReader;
 import com.zonsim.qrcode.R;
 import com.zonsim.qrcode.zxing.camera.CameraManager;
 import com.zonsim.qrcode.zxing.result.ResultHandler;
@@ -62,7 +59,6 @@ import com.zonsim.qrcode.zxing.view.ViewfinderView;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Hashtable;
 import java.util.Map;
 
 /**
@@ -127,7 +123,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 				finish();
 			}
 		});
-		
 		
 		
 		hasSurface = false;
@@ -245,34 +240,24 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == 101) {
+		
+		if (resultCode == Activity.RESULT_OK && requestCode == 101) {
 			Uri uri = data.getData();
-			String realPathFromURI = getRealPathFromURI(uri);
-			Result result = scanImage(realPathFromURI);
-			if (result == null) {
-				
-				Toast.makeText(getApplicationContext(), "图片格式有误", Toast.LENGTH_SHORT).show();
-				
-			} else {
-				System.out.println(result.toString());
-			}
-			System.out.println(realPathFromURI);
+			final String path = uri2path(uri);
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					System.out.println(path);
+					Bitmap bitmap = BitmapFactory.decodeFile(path);
+					String s = scanQRImage(bitmap);
+					System.out.println(s);
+				}
+			}).start();
 		}
 		
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
-	public String getRealPathFromURI(Uri contentUri) {
-		String res = null;
-		String[] proj = { MediaStore.Images.Media.DATA };
-		Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
-		if(cursor.moveToFirst()){;
-			int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-			res = cursor.getString(column_index);
-		}
-		cursor.close();
-		return res;
-	}
 	
 	@Override
 	protected void onPause() {
@@ -479,40 +464,42 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 		viewfinderView.drawViewfinder();
 	}
 	
-	protected Result scanImage(String path) {
-		if (TextUtils.isEmpty(path)) {
-			return null;
-		}
-		// DecodeHintType 和EncodeHintType
-		Hashtable<DecodeHintType, String> hints = new Hashtable<>();
-		hints.put(DecodeHintType.CHARACTER_SET, "utf-8"); // 设置二维码内容的编码
-		BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inJustDecodeBounds = true; // 先获取原大小
-		scanBitmap = BitmapFactory.decodeFile(path, options);
-		options.inJustDecodeBounds = false; // 获取新的大小
+	
+	public String scanQRImage(Bitmap bMap) {
+		String contents = null;
 		
-		int sampleSize = (int) (options.outHeight / (float) 200);
+		int[] intArray = new int[bMap.getWidth() * bMap.getHeight()];
+		//copy pixel data from the Bitmap into the 'intArray' array
+		bMap.getPixels(intArray, 0, bMap.getWidth(), 0, 0, bMap.getWidth(), bMap.getHeight());
 		
-		if (sampleSize <= 0)
-			sampleSize = 1;
-		options.inSampleSize = sampleSize;
-		scanBitmap = BitmapFactory.decodeFile(path, options);
-		int[] pixels = new int[scanBitmap.getWidth() * scanBitmap.getHeight()];
-		RGBLuminanceSource source = new RGBLuminanceSource(scanBitmap.getWidth(),scanBitmap.getHeight(),pixels);
-		BinaryBitmap bitmap1 = new BinaryBitmap(new HybridBinarizer(source));
-		QRCodeReader reader = new QRCodeReader();
+		LuminanceSource source = new RGBLuminanceSource(bMap.getWidth(), bMap.getHeight(), intArray);
+		BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 		
+		Reader reader = new MultiFormatReader();
 		try {
-			
-			return reader.decode(bitmap1, hints);
-			
-		} catch (NotFoundException | ChecksumException | FormatException e) {
-			
-			e.printStackTrace();
-			
+			Result result = reader.decode(bitmap);
+			contents = result.getText();
+		} catch (Exception e) {
+			Log.e("QrTest", "Error decoding barcode", e);
 		}
-		
-		return null;
-		
+		return contents;
+	}
+	
+	/**
+	 * Uri 转 path
+	 *
+	 * @param uri
+	 * @return
+	 */
+	public String uri2path(Uri uri) {
+		String path = "";
+		String[] proj = {MediaStore.Images.Media.DATA};
+		Cursor cursor = getContentResolver().query(uri, proj, null, null, null);
+		if (cursor != null && cursor.moveToFirst()) {
+			int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			path = cursor.getString(column_index);
+			cursor.close();
+		}
+		return path;
 	}
 }
