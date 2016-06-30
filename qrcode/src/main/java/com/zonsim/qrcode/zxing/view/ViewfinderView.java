@@ -92,7 +92,7 @@ public final class ViewfinderView extends View {
 		super(context, attrs);
 		density = context.getResources().getDisplayMetrics().density;
 		//将像素转换成dp
-		ScreenRate = (int)(20 * density);
+		ScreenRate = (int) (20 * density);
 		// Initialize these once for performance rather than calling them every time in onDraw().
 		paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		Resources resources = getResources();
@@ -122,7 +122,7 @@ public final class ViewfinderView extends View {
 		}
 		
 		//初始化中间线滑动的最上边和最下边
-		if(!isFirst){
+		if (!isFirst) {
 			isFirst = true;
 			slideTop = frame.top;
 			slideBottom = frame.bottom;
@@ -167,7 +167,7 @@ public final class ViewfinderView extends View {
 			
 			//绘制中间的线,每次刷新界面，中间的线往下移动SPEEN_DISTANCE
 			slideTop += 8;
-			if(slideTop >= frame.bottom){
+			if (slideTop >= frame.bottom) {
 				slideTop = frame.top;
 			}
 			
@@ -175,7 +175,7 @@ public final class ViewfinderView extends View {
 			Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 			
 			canvas.drawBitmap(bitmap, null, rect, null);
-			
+
 //			canvas.drawRect(frame.left + 2, slideTop - 5, frame.right - 2, slideTop + 5, paint);
 			
 			

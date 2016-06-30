@@ -111,7 +111,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 		mBtnBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				finish();
+				if (lastResult != null) {
+					restartPreviewAfterDelay(0L);
+				} else {
+					finish();
+				} 
 			}
 		});
 		
@@ -196,7 +200,19 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 				public void run() {
 					System.out.println(path);
 					Bitmap bitmap = BitmapFactory.decodeFile(path);
-					String s = scanQRImage(bitmap);
+					final String s = scanQRImage(bitmap);
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							statusView.setVisibility(View.GONE);
+							viewfinderView.setVisibility(View.GONE);
+							resultView.setVisibility(View.VISIBLE);
+							
+							TextView contentsTextView = (TextView) findViewById(R.id.contents_text_view);
+							contentsTextView.setText(s);
+						}
+					});
+					
 					System.out.println(s);
 				}
 			}).start();
@@ -289,8 +305,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 			drawResultPoints(barcode, scaleFactor, rawResult);
 		}
 		
-		
-				handleDecodeInternally(rawResult, resultHandler, barcode);
+		handleDecodeInternally(rawResult, resultHandler, barcode);
 		
 	}
 	
@@ -419,6 +434,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 		Reader reader = new MultiFormatReader();
 		try {
 			Result result = reader.decode(bitmap);
+			lastResult = result;
 			contents = result.getText();
 		} catch (Exception e) {
 			Log.e("QrTest", "Error decoding barcode", e);
