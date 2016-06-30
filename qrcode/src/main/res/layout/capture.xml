@@ -37,6 +37,7 @@
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:text="返回"
+                 android:textColor="#FFF"
                  android:id="@+id/button"/>
 
              <CheckBox
@@ -44,6 +45,7 @@
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:text="打开闪光灯"
+                 android:textColor="#FFF"
                  android:id="@+id/button2"/>
 
              <Button
@@ -51,6 +53,7 @@
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:text="相册"
+                 android:textColor="#FFF"
                  android:id="@+id/button3"/>
          </LinearLayout>
     </RelativeLayout>
@@ -146,7 +149,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:background="@color/transparent"
-        android:text="@string/msg_default_status"
+        android:text="请将条码置于取景框内扫描。"
         android:textColor="@color/status_text"/>
 
 </merge>

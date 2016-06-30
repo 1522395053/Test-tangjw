@@ -43,7 +43,6 @@ import android.widget.TextView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
-import com.google.zxing.DecodeHintType;
 import com.google.zxing.LuminanceSource;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.RGBLuminanceSource;
@@ -58,8 +57,6 @@ import com.zonsim.qrcode.zxing.result.ResultHandlerFactory;
 import com.zonsim.qrcode.zxing.view.ViewfinderView;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Map;
 
 /**
  * This activity opens the camera and does the actual scanning on a background thread. It draws a
@@ -80,20 +77,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	private View resultView;
 	private Result lastResult;
 	private boolean hasSurface;
-	//	private boolean copyToClipboard;
-	private IntentSource source;
-	private String sourceUrl;
-	private Collection<BarcodeFormat> decodeFormats;
-	private Map<DecodeHintType, ?> decodeHints;
-	private String characterSet;
-	//	private HistoryManager historyManager;
+
 	private InactivityTimer inactivityTimer;
 	private BeepManager beepManager;
 	private AmbientLightManager ambientLightManager;
 	private Button mBtnBack;
 	private CheckBox mBtnLight;
 	private Button mBtnGallery;
-	private Bitmap scanBitmap;
+
 	
 	ViewfinderView getViewfinderView() {
 		return viewfinderView;
@@ -164,50 +155,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 		ambientLightManager.start(cameraManager);
 		
 		inactivityTimer.onResume();
-		Intent intent = getIntent();
-		source = IntentSource.NONE;
-		sourceUrl = null;
-		decodeFormats = null;
-		characterSet = null;
-		
-		
-		/*if (intent != null) {
-			
-			String action = intent.getAction();
-			
-			if (Intents.Scan.ACTION.equals(action)) {
-				
-				// Scan the formats the intent requested, and return the result to the calling activity.
-				source = IntentSource.NATIVE_APP_INTENT;
-				decodeFormats = DecodeFormatManager.parseDecodeFormats(intent);
-				decodeHints = DecodeHintManager.parseDecodeHints(intent);
-				
-				if (intent.hasExtra(Intents.Scan.WIDTH) && intent.hasExtra(Intents.Scan.HEIGHT)) {
-					int width = intent.getIntExtra(Intents.Scan.WIDTH, 0);
-					int height = intent.getIntExtra(Intents.Scan.HEIGHT, 0);
-					if (width > 0 && height > 0) {
-						cameraManager.setManualFramingRect(width, height);
-					}
-				}
-				
-				if (intent.hasExtra(Intents.Scan.CAMERA_ID)) {
-					int cameraId = intent.getIntExtra(Intents.Scan.CAMERA_ID, -1);
-					if (cameraId >= 0) {
-						cameraManager.setManualCameraId(cameraId);
-					}
-				}
-				
-				String customPromptMessage = intent.getStringExtra(Intents.Scan.PROMPT_MESSAGE);
-				if (customPromptMessage != null) {
-					statusView.setText(customPromptMessage);
-				}
-				
-			}
-			
-			characterSet = intent.getStringExtra(Intents.Scan.CHARACTER_SET);
-			
-		}*/
-		
 		
 		SurfaceView surfaceView = (SurfaceView) findViewById(R.id.preview_view);
 		SurfaceHolder surfaceHolder = surfaceView.getHolder();
@@ -287,12 +234,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
 			case KeyEvent.KEYCODE_BACK:
-				if (source == IntentSource.NATIVE_APP_INTENT) {
-					setResult(RESULT_CANCELED);
-					finish();
-					return true;
-				}
-				if ((source == IntentSource.NONE || source == IntentSource.ZXING_LINK) && lastResult != null) {
+				
+				if (lastResult != null) {
 					restartPreviewAfterDelay(0L);
 					return true;
 				}
@@ -346,11 +289,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 			drawResultPoints(barcode, scaleFactor, rawResult);
 		}
 		
-		switch (source) {
-			case NONE:
+		
 				handleDecodeInternally(rawResult, resultHandler, barcode);
-				break;
-		}
+		
 	}
 	
 	/**
@@ -424,7 +365,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 			cameraManager.openDriver(surfaceHolder);
 			// Creating the handler starts the preview, which can also throw a RuntimeException.
 			if (handler == null) {
-				handler = new CaptureActivityHandler(this, decodeFormats, decodeHints, characterSet, cameraManager);
+				handler = new CaptureActivityHandler(this, null, null, null, cameraManager);
 			}
 			
 		} catch (IOException ioe) {
@@ -487,7 +428,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	
 	/**
 	 * Uri 转 path
-	 *
+	 *  
 	 * @param uri
 	 * @return
 	 */

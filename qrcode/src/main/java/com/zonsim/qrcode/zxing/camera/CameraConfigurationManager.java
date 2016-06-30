@@ -17,10 +17,8 @@
 package com.zonsim.qrcode.zxing.camera;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.hardware.Camera;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
@@ -165,7 +163,6 @@ final class CameraConfigurationManager {
 			Log.w(TAG, "In camera config safe mode -- most settings will not be honored");
 		}
 		
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		
 //		initializeTorch(parameters, prefs, safeMode);
 		

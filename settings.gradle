@@ -1,1 +1,1 @@
-include  ':qrcode' //,':app', ':sqlite'
+include ':qrcode' //,':app', ':sqlite'

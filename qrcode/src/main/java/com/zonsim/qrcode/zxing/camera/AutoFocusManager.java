@@ -17,10 +17,8 @@
 package com.zonsim.qrcode.zxing.camera;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.hardware.Camera;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -48,7 +46,6 @@ final class AutoFocusManager implements Camera.AutoFocusCallback {
 
   AutoFocusManager(Context context, Camera camera) {
     this.camera = camera;
-    SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
     String currentFocusMode = camera.getParameters().getFocusMode();
     useAutoFocus =
         /*sharedPrefs.getBoolean(PreferencesActivity.KEY_AUTO_FOCUS, true) &&*/
