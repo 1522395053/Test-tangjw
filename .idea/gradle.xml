@@ -8,13 +8,13 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/calendersign" />
+            <option value="$PROJECT_DIR$/sendweibo" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/calendersign" />
+            <option value="$PROJECT_DIR$/sendweibo" />
           </set>
         </option>
       </GradleProjectSettings>
