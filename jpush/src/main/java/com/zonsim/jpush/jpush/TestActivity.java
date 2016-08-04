@@ -1,11 +1,12 @@
 package com.zonsim.jpush.jpush;
 
-import cn.jpush.android.api.JPushInterface;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class TestActivity extends Activity {
 
@@ -21,6 +22,8 @@ public class TestActivity extends Activity {
 	        String content = bundle.getString(JPushInterface.EXTRA_ALERT);
 	        tv.setText("Title : " + title + "  " + "Content : " + content);
         }
+	    
+//	    new Intent()
         addContentView(tv, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
     }
 
