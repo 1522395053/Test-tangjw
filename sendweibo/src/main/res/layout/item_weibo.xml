@@ -35,15 +35,19 @@
             android:text="测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试"
             android:textSize="14.5sp"/>
 
-        <RelativeLayout
+        <!--<RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.zonsim.sendweibo.RatioImageView
                 android:layout_width="wrap_content"
+                android:src="@drawable/img08"
                 android:layout_height="wrap_content"/>
 
-        </RelativeLayout>
+        </RelativeLayout>-->
+        
+        
+        
     </LinearLayout>
 
 </LinearLayout>
