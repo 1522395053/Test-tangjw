@@ -118,6 +118,8 @@ public abstract class NineGridLayout extends ViewGroup {
 		
 		if (size == 1) {
 			String url = mUrlList.get(0);
+			System.out.println(mUrlList.get(0));
+			
 			RatioImageView imageView = createImageView(0, url);
 			
 			//避免在ListView中一张图未加载成功时，布局高度受其他item影响
@@ -137,7 +139,9 @@ public abstract class NineGridLayout extends ViewGroup {
 		
 		generateChildrenLayout(size);
 		layoutParams();
-		
+		System.out.println(mUrlList.get(0));
+		System.out.println(mUrlList.get(1));
+		System.out.println(mUrlList.get(2));
 		for (int i = 0; i < size; i++) {
 			String url = mUrlList.get(i);
 			RatioImageView imageView;

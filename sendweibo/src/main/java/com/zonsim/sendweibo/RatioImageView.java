@@ -2,11 +2,7 @@ package com.zonsim.sendweibo;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.widget.ImageView;
 
 /**
@@ -53,28 +49,26 @@ public class RatioImageView extends ImageView {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 	}
 	
-	@Override
+	/*@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		Drawable drawable = getDrawable();
 		switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
-				Drawable drawable = getDrawable();
 				if (drawable != null) {
-					drawable.mutate().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+					drawable.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
 				}
 				break;
-			case MotionEvent.ACTION_MOVE:
-				break;
 			case MotionEvent.ACTION_CANCEL:
+				
 			case MotionEvent.ACTION_UP:
-				Drawable drawableUp = getDrawable();
-				if (drawableUp != null) {
-					drawableUp.mutate().clearColorFilter();
+				if (drawable != null) {
+					drawable.clearColorFilter();
 				}
 				break;
 		}
 		
 		return super.onTouchEvent(event);
-	}
+	}*/
 	
 	
 }

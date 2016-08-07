@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -47,18 +46,11 @@ public class SendFragment extends android.support.v4.app.Fragment {
 		
 		mGridView.setAdapter(mAdapter);
 		
-		mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				pickImage(position);
-			}
-		});
-		
 		mTvSend.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				for (Map.Entry<Integer, String> entry : mImgPathMap.entrySet()) {
-					System.out.println("键:"+entry.getKey()+", 值:"+entry.getValue());
+					System.out.println("键:" + entry.getKey() + ", 值:" + entry.getValue());
 				}
 			}
 		});
@@ -96,22 +88,27 @@ public class SendFragment extends android.support.v4.app.Fragment {
 			if (convertView == null) {
 				convertView = View.inflate(getContext(), R.layout.item_img, null);
 			}
-			ImageView img = ViewHolder.get(convertView, R.id.siv_img);
-			
+			RatioImageView img = ViewHolder.get(convertView, R.id.siv_img);
+			img.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					pickImage(position);
+				}
+			});
 			ImageView del = ViewHolder.get(convertView, R.id.iv_close);
-			if (mImgPathMap.size() > 0&&position < mImgPathMap.size()) {
-					img.setImageBitmap(LocalImageLoager.parseFile(mImgPathMap.get(position), img.getWidth(), img.getHeight(), null, Bitmap.Config.RGB_565));
-					del.setVisibility(View.VISIBLE);
-					del.setOnClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							for (int i = position; i < mImgPathMap.size(); i++) {
-								mImgPathMap.put(i, mImgPathMap.get(i + 1));
-							}
-							mImgPathMap.remove(mImgPathMap.size() - 1);
-							notifyDataSetChanged();
+			if (mImgPathMap.size() > 0 && position < mImgPathMap.size()) {
+				img.setImageBitmap(LocalImageLoager.parseFile(mImgPathMap.get(position), img.getWidth(), img.getHeight(), null, Bitmap.Config.RGB_565));
+				del.setVisibility(View.VISIBLE);
+				del.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						for (int i = position; i < mImgPathMap.size(); i++) {
+							mImgPathMap.put(i, mImgPathMap.get(i + 1));
 						}
-					});
+						mImgPathMap.remove(mImgPathMap.size() - 1);
+						notifyDataSetChanged();
+					}
+				});
 			} else {
 				img.setImageResource(R.drawable.compose_pic_add_highlighted);
 				del.setVisibility(View.GONE);
