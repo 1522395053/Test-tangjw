@@ -1,1 +1,1 @@
-include ':sendweibo', ':ninegridimageviewlayout'//':qrcode'//':calendersign'    //':qrcode' //,':app', ':sqlite' , ':app',':guidepage',  ':jpush'
+include ':sendweibo'//':qrcode'//':calendersign'    //':qrcode' //,':app', ':sqlite' , ':app',':guidepage',  ':jpush'
