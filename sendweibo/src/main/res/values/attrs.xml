@@ -7,9 +7,18 @@
     <declare-styleable name="NineGridLayout">
         <attr name="sapcing" format="dimension"/>
     </declare-styleable>
+    
 
     <declare-styleable name="NineImageLayout">
-        <attr name="spacing" format="dimension"/>
+        <attr name="singleImageSize" format="dimension"/>
+        <attr name="singleImageRatio" format="float"/>
+        <attr name="gridSpacing" format="dimension"/>
+        <attr name="maxSize" format="integer"/>
+        <attr name="mode" format="enum">
+            <enum name="fill" value="0"/>
+            <enum name="grid" value="1"/>
+        </attr>
     </declare-styleable>
-    
+
+
 </resources>
