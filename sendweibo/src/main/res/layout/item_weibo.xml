@@ -36,13 +36,13 @@
             android:text="测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试"
             android:textSize="14.5sp"/>
 
-        <com.zonsim.sendweibo.NineGridTestLayout
+        <com.zonsim.sendweibo.NineGridLayout
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/layout_nine_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:sapcing="4dp"/>
+            />
 
 
     </LinearLayout>

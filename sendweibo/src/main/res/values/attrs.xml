@@ -7,4 +7,9 @@
     <declare-styleable name="NineGridLayout">
         <attr name="sapcing" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="NineImageLayout">
+        <attr name="spacing" format="dimension"/>
+    </declare-styleable>
+    
 </resources>

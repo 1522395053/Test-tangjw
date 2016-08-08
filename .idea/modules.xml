@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Test-tangjw.iml" filepath="$PROJECT_DIR$/Test-tangjw.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Test.iml" filepath="$PROJECT_DIR$/Test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ninegridimageviewlayout/ninegridimageviewlayout.iml" filepath="$PROJECT_DIR$/ninegridimageviewlayout/ninegridimageviewlayout.iml" />
       <module fileurl="file://$PROJECT_DIR$/sendweibo/sendweibo.iml" filepath="$PROJECT_DIR$/sendweibo/sendweibo.iml" />
     </modules>
   </component>
