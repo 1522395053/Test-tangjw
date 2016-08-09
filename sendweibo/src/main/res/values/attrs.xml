@@ -13,11 +13,7 @@
         <attr name="singleImageSize" format="dimension"/>
         <attr name="singleImageRatio" format="float"/>
         <attr name="gridSpacing" format="dimension"/>
-        <attr name="maxSize" format="integer"/>
-        <attr name="mode" format="enum">
-            <enum name="fill" value="0"/>
-            <enum name="grid" value="1"/>
-        </attr>
+        <!--<attr name="maxSize" format="integer"/>-->
     </declare-styleable>
 
 

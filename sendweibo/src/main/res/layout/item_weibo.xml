@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:descendantFocusability="blocksDescendants"
               android:orientation="horizontal">
 
@@ -36,13 +37,12 @@
             android:text="测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试"
             android:textSize="14.5sp"/>
 
-        <com.zonsim.sendweibo.NineGridLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.zonsim.sendweibo.widget.NineImageLayout
+            app:singleImageSize="250dp"
             android:id="@+id/layout_nine_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            />
+            android:layout_marginTop="8dp"/>
 
 
     </LinearLayout>
