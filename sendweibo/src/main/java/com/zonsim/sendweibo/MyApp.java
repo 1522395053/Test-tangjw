@@ -15,5 +15,15 @@ public class MyApp extends Application {
 		super.onCreate();
 		ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
 		ImageLoader.getInstance().init(configuration);
+		
+//		OkHttpClient okHttpClient = new OkHttpClient.Builder()
+////                .addInterceptor(new LoggerInterceptor("TAG"))
+//				.connectTimeout(5000L, TimeUnit.MILLISECONDS)
+//				.readTimeout(5000L, TimeUnit.MILLISECONDS)
+//				//其他配置
+//				.build();
+//		
+//		OkHttpUtils.initClient(okHttpClient);
+		
 	}
 }

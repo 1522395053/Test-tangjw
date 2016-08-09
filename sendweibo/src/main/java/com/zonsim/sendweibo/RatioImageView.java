@@ -55,6 +55,7 @@ public class RatioImageView extends ImageView {
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		setClickable(true);
 		Drawable drawable = getDrawable();
 		switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:

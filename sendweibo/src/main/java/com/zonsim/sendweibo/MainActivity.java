@@ -14,16 +14,21 @@ import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 import com.zonsim.sendweibo.widget.NineImageLayout;
 import com.zonsim.sendweibo.widget.NineImageLayoutAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
+
 public class MainActivity extends AppCompatActivity {
 	
 	private ListView mListView;
 	private ArrayList<String> mList;
+	private List<PostsListBean.DataBean> mBeanList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
 		
 		mListView = (ListView) findViewById(R.id.lv_weibo);
 		
-		
-		mList = new ArrayList<>();
-		
-		mList.add("http://img4.imgtn.bdimg.com/it/u=2868470793,2681632895&fm=21&gp=0.jpg");
+		initData();
+
+
+//		mList.add("http://img4.imgtn.bdimg.com/it/u=2868470793,2681632895&fm=21&gp=0.jpg");
 //		mList.add("http://preview.orderpic.com/chineseview039/east-ep-a11-419959.jpg");
 //		mList.add("http://img4.imgtn.bdimg.com/it/u=3445377427,2645691367&fm=21&gp=0.jpg");
 //		mList.add("http://img4.imgtn.bdimg.com/it/u=2644422079,4250545639&fm=21&gp=0.jpg");
@@ -46,7 +51,32 @@ public class MainActivity extends AppCompatActivity {
 //		mList.add("http://img2.imgtn.bdimg.com/it/u=3251359643,4211266111&fm=21&gp=0.jpg");
 //		mList.add("http://img5.imgtn.bdimg.com/it/u=1717647885,4193212272&fm=21&gp=0.jpg");
 //		mList.add("http://img4.imgtn.bdimg.com/it/u=944538271,3669748807&fm=21&gp=0.jpg");
-		mListView.setAdapter(new MyAdapter());
+		
+		
+	}
+	
+	private void initData() {
+		mList = new ArrayList<>();
+		OkHttpUtils.get()
+				.url("http://118.145.26.214:8086/lianyi/MtsGroup/getAllGroups.do")
+				.build()
+				.execute(new StringCallback() {
+					@Override
+					public void onError(Call call, Exception e, int id) {
+						
+					}
+					
+					@Override
+					public void onResponse(String response, int id) {
+						System.out.println("response:-->" + response);
+//						Gson gson = new Gson();
+//						PostsListBean postsListBean = gson.fromJson(response, PostsListBean.class);
+//						mBeanList = postsListBean.getData();
+//						
+//						mListView.setAdapter(new MyAdapter());
+					}
+				});
+		System.out.println("response:-->" );
 		NineImageLayout.setImageLoader(new UniversalImageLoader());
 	}
 	
@@ -66,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 		
 		@Override
 		public int getCount() {
-			return 10;
+			return mBeanList.size();
 		}
 		
 		@Override
@@ -92,9 +122,9 @@ public class MainActivity extends AppCompatActivity {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			if (mList.size() == 1) {
+			if (mBeanList.size() ==2) {
 				holder.singleImage.setVisibility(View.VISIBLE);
-				Glide.with(MainActivity.this).load(mList.get(0))
+				Glide.with(MainActivity.this).load(mBeanList.get(0).getPhoto())
 //						.placeholder(R.drawable.banner_default)
 //						.error(R.drawable.banner_default)
 						.diskCacheStrategy(DiskCacheStrategy.ALL)

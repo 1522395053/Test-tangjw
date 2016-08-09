@@ -63,7 +63,6 @@ public abstract class NineImageLayoutAdapter {
 		} else {
 			imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 		} 
-		imageView.setClickable(true);
 		return imageView;
 	}
 	
