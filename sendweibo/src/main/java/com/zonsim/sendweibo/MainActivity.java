@@ -12,6 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zonsim.sendweibo.widget.NineImageLayout;
 import com.zonsim.sendweibo.widget.NineImageLayoutAdapter;
 
@@ -32,8 +34,9 @@ public class MainActivity extends AppCompatActivity {
 		
 		
 		mList = new ArrayList<>();
-
-		mList.add("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=4033491868,3189899599&fm=116&gp=0.jpg");
+		
+		mList.add("http://img4.imgtn.bdimg.com/it/u=2868470793,2681632895&fm=21&gp=0.jpg");
+//		mList.add("http://preview.orderpic.com/chineseview039/east-ep-a11-419959.jpg");
 //		mList.add("http://img4.imgtn.bdimg.com/it/u=3445377427,2645691367&fm=21&gp=0.jpg");
 //		mList.add("http://img4.imgtn.bdimg.com/it/u=2644422079,4250545639&fm=21&gp=0.jpg");
 //		mList.add("http://img5.imgtn.bdimg.com/it/u=1444023808,3753293381&fm=21&gp=0.jpg");
@@ -59,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
 	
 	private class MyAdapter extends BaseAdapter {
 		
+		MyNineImageAdapter adapter;
+		
 		@Override
 		public int getCount() {
 			return 10;
@@ -82,19 +87,35 @@ public class MainActivity extends AppCompatActivity {
 				convertView = View.inflate(MainActivity.this, R.layout.item_weibo, null);
 				holder = new ViewHolder();
 				holder.layout = (NineImageLayout) convertView.findViewById(R.id.layout_nine_grid);
+				holder.singleImage = (ImageView) convertView.findViewById(R.id.iv_single);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-
-//				holder.layout.setIsShowAll(true);
-//				holder.layout.setUrlList(mList);
-			holder.layout.setAdapter(new MyNineImageAdapter(MainActivity.this, mList));
+			if (mList.size() == 1) {
+				holder.singleImage.setVisibility(View.VISIBLE);
+				Glide.with(MainActivity.this).load(mList.get(0))
+//						.placeholder(R.drawable.banner_default)
+//						.error(R.drawable.banner_default)
+						.diskCacheStrategy(DiskCacheStrategy.ALL)
+						.into(holder.singleImage);
+			} else {
+				holder.singleImage.setVisibility(View.GONE);
+				
+				if (adapter == null) {
+					adapter = new MyNineImageAdapter(MainActivity.this, mList);
+					holder.layout.setAdapter(adapter);
+				} else {
+					adapter.setImageInfoList(mList);
+					holder.layout.setAdapter(adapter);
+				}
+			}
 			return convertView;
 		}
 		
 		private class ViewHolder {
 			NineImageLayout layout;
+			ImageView singleImage;
 		}
 	}
 	

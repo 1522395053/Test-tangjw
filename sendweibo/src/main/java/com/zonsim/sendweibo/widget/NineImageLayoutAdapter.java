@@ -58,7 +58,11 @@ public abstract class NineImageLayoutAdapter {
 	 */
 	protected ImageView createImageView(Context context) {
 		ImageView imageView = new RatioImageView(context);
-		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		if (mImageInfoList.size() > 1) {
+			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		} else {
+			imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+		} 
 		imageView.setClickable(true);
 		return imageView;
 	}

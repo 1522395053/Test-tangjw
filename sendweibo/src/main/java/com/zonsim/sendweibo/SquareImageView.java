@@ -43,5 +43,6 @@ public class SquareImageView extends ImageView {
 		super.onMeasure(widthMeasureSpec, widthMeasureSpec);
 		int width = MeasureSpec.getSize(widthMeasureSpec);
 		setMeasuredDimension(width, width);
+		
 	}
 }
