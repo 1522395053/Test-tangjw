@@ -1,4 +1,4 @@
-package com.zonsim.sendweibo;
+package com.zonsim.sendweibo.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,6 +8,8 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageView;
+
+import com.zonsim.sendweibo.R;
 
 /**
  * 根据宽高比例自动计算高度ImageView

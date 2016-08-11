@@ -1,4 +1,4 @@
-package com.zonsim.sendweibo;
+package com.zonsim.sendweibo.bean;
 
 import java.util.List;
 

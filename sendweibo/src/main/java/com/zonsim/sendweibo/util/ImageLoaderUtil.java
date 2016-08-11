@@ -1,12 +1,14 @@
-package com.zonsim.sendweibo;
+package com.zonsim.sendweibo.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.zonsim.sendweibo.R;
 
 /**
  * Created by HMY
@@ -27,11 +29,11 @@ public class ImageLoaderUtil {
         return options;
     }
 
-    public static void displayImage(Context context, ImageView imageView, String url, DisplayImageOptions options) {
+    public static void displayImage(Context context, @NonNull ImageView imageView, String url, DisplayImageOptions options) {
         getImageLoader(context).displayImage(url, imageView, options);
     }
 
-    public static void displayImage(Context context, ImageView imageView, String url, DisplayImageOptions options, ImageLoadingListener listener) {
+    public static void displayImage(Context context, @NonNull ImageView imageView, String url, DisplayImageOptions options, ImageLoadingListener listener) {
         getImageLoader(context).displayImage(url, imageView, options, listener);
     }
 }

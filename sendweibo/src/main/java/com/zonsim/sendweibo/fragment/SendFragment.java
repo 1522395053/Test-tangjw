@@ -1,4 +1,4 @@
-package com.zonsim.sendweibo;
+package com.zonsim.sendweibo.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,11 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.zonsim.sendweibo.R;
+import com.zonsim.sendweibo.util.ViewHolder;
+import com.zonsim.sendweibo.util.LocalImageLoager;
+import com.zonsim.sendweibo.widget.RatioImageView;
 
 import java.util.HashMap;
 import java.util.Map;

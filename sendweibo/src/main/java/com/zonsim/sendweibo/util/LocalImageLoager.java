@@ -1,4 +1,4 @@
-package com.zonsim.sendweibo;
+package com.zonsim.sendweibo.util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

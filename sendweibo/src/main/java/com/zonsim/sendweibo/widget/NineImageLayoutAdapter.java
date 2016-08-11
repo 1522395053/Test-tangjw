@@ -3,8 +3,6 @@ package com.zonsim.sendweibo.widget;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.zonsim.sendweibo.RatioImageView;
-
 import java.util.List;
 
 /**
@@ -61,7 +59,7 @@ public abstract class NineImageLayoutAdapter {
 		if (mImageInfoList.size() > 1) {
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		} else {
-			imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		} 
 		return imageView;
 	}

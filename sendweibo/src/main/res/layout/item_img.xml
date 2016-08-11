@@ -7,7 +7,7 @@
                 android:orientation="vertical">
 
 
-    <com.zonsim.sendweibo.RatioImageView
+    <com.zonsim.sendweibo.widget.RatioImageView
         android:id="@+id/siv_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
