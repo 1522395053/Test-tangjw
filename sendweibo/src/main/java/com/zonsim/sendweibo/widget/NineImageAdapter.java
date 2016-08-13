@@ -9,12 +9,12 @@ import java.util.List;
  * CopyRight
  * Created by tang-jw on 2016/8/9.
  */
-public abstract class NineImageLayoutAdapter {
+public abstract class NineImageAdapter {
 	
 	protected Context mContext;
 	private List<String> mImageInfoList;
 	
-	public NineImageLayoutAdapter(Context context, List<String> imageInfoList) {
+	public NineImageAdapter(Context context, List<String> imageInfoList) {
 		mContext = context;
 		mImageInfoList = imageInfoList;
 	}

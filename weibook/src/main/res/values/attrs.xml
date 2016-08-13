@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RatioImageView">
+        <attr name="ratio" format="float"/>
+    </declare-styleable>
+
+    <declare-styleable name="NineGridLayout">
+        <attr name="sapcing" format="dimension"/>
+    </declare-styleable>
+    
+
+    <declare-styleable name="NineImageLayout">
+        <attr name="singleImageSize" format="dimension"/>
+        <attr name="singleImageRatio" format="float"/>
+        <attr name="gridSpacing" format="dimension"/>
+        <!--<attr name="maxSize" format="integer"/>-->
+    </declare-styleable>
+
+
+</resources>

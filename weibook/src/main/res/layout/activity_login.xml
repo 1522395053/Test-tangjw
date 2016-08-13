@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/obtain_token_via_sso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:text="SSO 授权（仅客户端）" />
+
+    <Button
+        android:id="@+id/obtain_token_via_web"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="left|center_vertical"
+        android:text="SSO 授权（Web）" />
+
+    <Button
+        android:id="@+id/btn_getUserInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="left|center_vertical"
+        android:text="获取用户信息" />
+
+    <Button
+        android:id="@+id/btn_getAll"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取微博"/>
+
+    <TextView
+        android:id="@+id/token_text_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp" />
+
+</LinearLayout>

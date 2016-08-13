@@ -1,4 +1,4 @@
-package com.zonsim.sendweibo;
+package com.tjw.weibook;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,18 +11,16 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.tjw.weibook.bean.PostsListBean;
+import com.tjw.weibook.fragment.SendFragment;
+import com.tjw.weibook.util.MyToast;
+import com.tjw.weibook.widget.NineImageAdapter;
+import com.tjw.weibook.widget.NineImageLayout;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-import com.zonsim.sendweibo.bean.PostsListBean;
-import com.zonsim.sendweibo.fragment.SendFragment;
-import com.zonsim.sendweibo.util.MyToast;
-import com.zonsim.sendweibo.widget.NineImageAdapter;
-import com.zonsim.sendweibo.widget.NineImageLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Call;
 
 public class MainActivity extends AppCompatActivity {
 	
@@ -40,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 //		initData();
 		
 		mList = new ArrayList<>();
-		
+
 //		mList.add("http://img4.imgtn.bdimg.com/it/u=2868470793,2681632895&fm=21&gp=0.jpg");
 //		mList.add("http://preview.orderpic.com/chineseview039/east-ep-a11-419959.jpg");
 //		mList.add("http://img4.imgtn.bdimg.com/it/u=3445377427,2645691367&fm=21&gp=0.jpg");
@@ -60,8 +58,9 @@ public class MainActivity extends AppCompatActivity {
 				.url("http://192.168.1.233:8080/posts.json")
 				.build()
 				.execute(new StringCallback() {
+					
 					@Override
-					public void onError(Call call, Exception e, int id) {
+					public void onError(okhttp3.Call call, Exception e, int id) {
 						
 					}
 					

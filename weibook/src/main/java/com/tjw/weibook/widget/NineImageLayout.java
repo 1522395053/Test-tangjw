@@ -1,4 +1,4 @@
-package com.zonsim.sendweibo.widget;
+package com.tjw.weibook.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zonsim.sendweibo.util.ImageLoaderUtil;
-import com.zonsim.sendweibo.R;
+import com.tjw.weibook.R;
+import com.tjw.weibook.util.ImageLoaderUtil;
 
 import java.util.ArrayList;
 import java.util.List;
