@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zonsim.sendweibo.util.ImageLoaderUtil;
 import com.zonsim.sendweibo.R;
+import com.zonsim.sendweibo.util.ImageLoaderUtil;
 
 import java.util.ArrayList;
 import java.util.List;

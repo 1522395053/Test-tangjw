@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -19,6 +21,7 @@ import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 import com.sina.weibo.sdk.openapi.models.User;
 import com.tjw.weibook.MainActivity;
 import com.tjw.weibook.R;
+import com.tjw.weibook.util.ImageLoaderUtil;
 import com.tjw.weibook.util.MyToast;
 
 import java.text.SimpleDateFormat;
@@ -204,6 +207,12 @@ public class LoginActivity extends Activity {
 				User user = User.parse(response);
 				if (user != null) {
 					Logger.i(user.avatar_hd);
+					((TextView)(findViewById(R.id.tv_nickname))).setText(user.screen_name);
+					((TextView)(findViewById(R.id.tv_description))).setText("简介："+user.description);
+					((TextView)(findViewById(R.id.tv_statuses_count))).setText(user.statuses_count+"");
+					((TextView)(findViewById(R.id.tv_friends_count))).setText(user.friends_count+"");
+					((TextView)(findViewById(R.id.tv_followers_count))).setText(user.followers_count+"");
+					ImageLoader.getInstance().displayImage(user.avatar_large, ((ImageView) (findViewById(R.id.iv_avatar))), ImageLoaderUtil.getPhotoImageOption());
 					MyToast.show(LoginActivity.this, "获取User信息成功，用户昵称：" + user.screen_name);
 				} else {
 					MyToast.show(LoginActivity.this, response);

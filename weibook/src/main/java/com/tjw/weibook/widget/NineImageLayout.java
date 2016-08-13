@@ -94,7 +94,7 @@ public class NineImageLayout extends ViewGroup {
 		
 		mGridWidth = mGridHeight = (totalWidth - mGridSpacing * 2) / 3;
 		if (mImageUrls != null && mImageUrls.size() > 0) {
-			if (mImageUrls.size() == 1 && mSingleImageHeight != 0 && mSingleImageWidth != 0) {
+			if (mImageUrls.size() == 1 && mSingleImageHeight == 0 && mSingleImageWidth != 0) {
 				
 				if (mSingleImageWidth > totalWidth) {
 					mSingleImageHeight = totalWidth * mSingleImageHeight / mSingleImageWidth;
@@ -125,10 +125,11 @@ public class NineImageLayout extends ViewGroup {
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
 		if (mImageUrls == null) return;
 		int childrenCount = mImageUrls.size();
-		if (childrenCount == 1 && mSingleImageHeight != 0 && mSingleImageWidth != 0) {
+		if (childrenCount == 1 && mSingleImageHeight == 0 && mSingleImageWidth == 0) {
 			ImageView childImageView = (ImageView) getChildAt(0);
 			onDisplayImage(childImageView, mImageUrls.get(0));
-			childImageView.layout(0, 0, mSingleImageWidth, mSingleImageHeight);
+			childImageView.layout(0, 0, 2*mGridWidth,2* mGridWidth);
+			childImageView.layout(0, 0, 2*mGridWidth, 2*mGridWidth);
 		} else {
 			for (int i = 0; i < childrenCount; i++) {
 				ImageView childImageView = (ImageView) getChildAt(i);
