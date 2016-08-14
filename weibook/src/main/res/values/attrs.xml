@@ -10,10 +10,8 @@
     
 
     <declare-styleable name="NineImageLayout">
-        <attr name="singleImageSize" format="dimension"/>
         <attr name="singleImageRatio" format="float"/>
         <attr name="gridSpacing" format="dimension"/>
-        <!--<attr name="maxSize" format="integer"/>-->
     </declare-styleable>
 
 

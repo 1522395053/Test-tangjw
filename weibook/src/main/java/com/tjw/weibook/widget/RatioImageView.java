@@ -67,7 +67,7 @@ public class RatioImageView extends ImageView {
 				}
 				break;
 			case MotionEvent.ACTION_CANCEL:
-			
+				
 			case MotionEvent.ACTION_UP:
 				if (drawable != null) {
 					drawable.clearColorFilter();

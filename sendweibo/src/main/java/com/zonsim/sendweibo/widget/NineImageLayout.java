@@ -128,7 +128,7 @@ public class NineImageLayout extends ViewGroup {
 		if (childrenCount == 1 && mSingleImageHeight != 0 && mSingleImageWidth != 0) {
 			ImageView childImageView = (ImageView) getChildAt(0);
 			onDisplayImage(childImageView, mImageUrls.get(0));
-			childImageView.layout(0, 0, mSingleImageWidth, mSingleImageHeight);
+			childImageView.layout(0, 0, childImageView.getMeasuredWidth(), childImageView.getMeasuredHeight());
 		} else {
 			for (int i = 0; i < childrenCount; i++) {
 				ImageView childImageView = (ImageView) getChildAt(i);

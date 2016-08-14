@@ -15,7 +15,7 @@
         android:textSize="18dp"
         android:padding="5dp"
         android:layout_height="wrap_content"
-        android:text="朋友圈列表"/>
+        android:text="微博"/>
 
     <ListView
         android:background="#FFF"

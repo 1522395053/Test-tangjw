@@ -9,14 +9,14 @@ import java.util.List;
  * CopyRight
  * Created by tang-jw on 2016/8/9.
  */
-public abstract class NineImageAdapter {
+public abstract class NineGridAdapter {
 	
 	protected Context mContext;
-	private List<String> mImageInfoList;
+	private List<String> mImageUrlList;
 	
-	public NineImageAdapter(Context context, List<String> imageInfoList) {
+	public NineGridAdapter(Context context, List<String> imageInfoList) {
 		mContext = context;
-		mImageInfoList = imageInfoList;
+		mImageUrlList = imageInfoList;
 	}
 	
 	public Context getContext() {
@@ -27,24 +27,24 @@ public abstract class NineImageAdapter {
 		mContext = context;
 	}
 	
-	public List<String> getImageInfoList() {
-		return mImageInfoList;
+	public List<String> getImageUrlList() {
+		return mImageUrlList;
 	}
 	
-	public void setImageInfoList(List<String> imageInfoList) {
-		mImageInfoList = imageInfoList;
+	public void setImageUrlList(List<String> imageUrlList) {
+		mImageUrlList = imageUrlList;
 	}
 	
 	/**
 	 * 如果要实现图片点击的逻辑，重写此方法即可
 	 *
 	 * @param context         上下文
-	 * @param nineImageLayout 九宫格控件
+	 * @param nineGridViewGroup 九宫格控件
 	 * @param position        当前点击图片的的位置
-	 * @param imageInfoList   图片地址的数据集合
+	 * @param imageUrlList   图片地址的数据集合
 	 */
-	protected void onImageItemClick(Context context, NineImageLayout nineImageLayout, int position,
-	                                List<String> imageInfoList) {
+	protected void onImageItemClick(Context context, NineGridViewGroup nineGridViewGroup, int position,
+	                                List<String> imageUrlList) {
 	}
 	
 	/**
@@ -55,12 +55,10 @@ public abstract class NineImageAdapter {
 	 * @return 生成的 ImageView
 	 */
 	protected ImageView createImageView(Context context) {
-		ImageView imageView = new RatioImageView(context);
-		if (mImageInfoList.size() > 1) {
-			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-		} else {
-			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-		} 
+		RatioImageView imageView = new RatioImageView(context);
+		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		imageView.setRatio(1f);
+		
 		return imageView;
 	}
 	

@@ -1,2 +1,2 @@
-include ':weibook'//':sendweibo', ':qrcode'//':calendersign'    //':qrcode' //,':app', ':sqlite' , ':app',':guidepage',  ':jpush'
+include ':sendweibo',':weibook'//':sendweibo', ':qrcode'//':calendersign'    //':qrcode' //,':app', ':sqlite' , ':app',':guidepage',  ':jpush'
 include ':weiboSDK'

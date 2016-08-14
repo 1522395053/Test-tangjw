@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:descendantFocusability="blocksDescendants"
               android:orientation="horizontal">
 
     <ImageView
+        android:id="@+id/iv_avatar"
         android:layout_width="41dp"
         android:layout_height="41dp"
         android:layout_marginLeft="13dp"
@@ -22,6 +24,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -29,19 +32,28 @@
             android:textSize="15sp"/>
 
         <TextView
+            android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:lineSpacingExtra="1dp"
             android:text="测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试"
             android:textSize="14.5sp"/>
-        
-        <com.tjw.weibook.widget.NineImageLayout
-            android:id="@+id/layout_nine_grid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
 
+        <com.tjw.weibook.widget.NineGridViewGroup
+            android:id="@+id/ngv_nine_grid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <com.tjw.weibook.widget.RatioImageView
+                android:id="@+id/iv_single"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:ratio="0"
+                android:visibility="visible"/>
+
+        </com.tjw.weibook.widget.NineGridViewGroup>
     </LinearLayout>
 
 </LinearLayout>

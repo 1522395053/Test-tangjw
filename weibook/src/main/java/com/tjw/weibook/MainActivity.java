@@ -9,9 +9,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.orhanobut.logger.Logger;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
@@ -20,29 +22,31 @@ import com.sina.weibo.sdk.openapi.StatusesAPI;
 import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.StatusList;
-import com.tjw.weibook.bean.PostsListBean;
 import com.tjw.weibook.fragment.SendFragment;
+import com.tjw.weibook.util.ImageLoaderUtil;
 import com.tjw.weibook.util.MyToast;
 import com.tjw.weibook.weibo.AccessTokenKeeper;
 import com.tjw.weibook.weibo.Constants;
-import com.tjw.weibook.widget.NineImageAdapter;
-import com.tjw.weibook.widget.NineImageLayout;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
+import com.tjw.weibook.widget.NineGridAdapter;
+import com.tjw.weibook.widget.NineGridViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 	
-	/** 当前 Token 信息 */
+	/**
+	 * 当前 Token 信息
+	 */
 	private Oauth2AccessToken mAccessToken;
-	/** 用于获取微博信息流等操作的API */
+	/**
+	 * 用于获取微博信息流等操作的API
+	 */
 	private StatusesAPI mStatusesAPI;
 	
 	private ListView mListView;
 	private ArrayList<String> mList;
-	private List<PostsListBean.DataBean> mBeanList;
+	private StatusList mStatuses;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 		
 		mListView = (ListView) findViewById(R.id.lv_weibo);
-
+		
 		initData();
 		
 		mList = new ArrayList<>();
-
-		mList.add("http://img4.imgtn.bdimg.com/it/u=2868470793,2681632895&fm=21&gp=0.jpg");
+		
+//		mList.add("http://img4.imgtn.bdimg.com/it/u=2868470793,2681632895&fm=21&gp=0.jpg");
 //		mList.add("http://preview.orderpic.com/chineseview039/east-ep-a11-419959.jpg");
 //		mList.add("http://img4.imgtn.bdimg.com/it/u=3445377427,2645691367&fm=21&gp=0.jpg");
 //		mList.add("http://img4.imgtn.bdimg.com/it/u=2644422079,4250545639&fm=21&gp=0.jpg");
@@ -66,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 //		mList.add("http://img2.imgtn.bdimg.com/it/u=3251359643,4211266111&fm=21&gp=0.jpg");
 //		mList.add("http://img5.imgtn.bdimg.com/it/u=1717647885,4193212272&fm=21&gp=0.jpg");
 //		mList.add("http://img4.imgtn.bdimg.com/it/u=944538271,3669748807&fm=21&gp=0.jpg");
-		mListView.setAdapter(new MyAdapter());
+//		mListView.setAdapter(new MyAdapter());
 	}
 	
 	private void initData() {
@@ -77,30 +81,7 @@ public class MainActivity extends AppCompatActivity {
 		// 对statusAPI实例化
 		mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, mAccessToken);
 		
-		
-//		mStatusesAPI.friendsTimeline(0L, 0L, 20, 1, false, 0, false, mListener);
-		
-		OkHttpUtils.get()
-				.url("http://192.168.1.233:8080/posts.json")
-				.build()
-				.execute(new StringCallback() {
-					
-					@Override
-					public void onError(okhttp3.Call call, Exception e, int id) {
-						
-					}
-					
-					@Override
-					public void onResponse(String response, int id) {
-						System.out.println("response:-->" + response);
-						Gson gson = new Gson();
-						PostsListBean postsListBean = gson.fromJson(response, PostsListBean.class);
-						mBeanList = postsListBean.getData();
-						
-						mListView.setAdapter(new MyAdapter());
-					}
-				});
-		
+		mStatusesAPI.friendsTimeline(0L, 0L, 50, 1, false, 2, false, mListener);
 		
 	}
 	
@@ -118,17 +99,17 @@ public class MainActivity extends AppCompatActivity {
 		
 		@Override
 		public int getCount() {
-			return 10;
+			return mStatuses.statusList.size();
 		}
 		
 		@Override
-		public PostsListBean.DataBean getItem(int position) {
-			return null;
+		public Status getItem(int position) {
+			return mStatuses.statusList.get(position);
 		}
 		
 		@Override
 		public long getItemId(int position) {
-			return position;
+			return Long.parseLong(getItem(position).id);
 		}
 		
 		@Override
@@ -138,45 +119,62 @@ public class MainActivity extends AppCompatActivity {
 			if (convertView == null || convertView.getTag() == null) {
 				convertView = View.inflate(MainActivity.this, R.layout.item_weibo, null);
 				holder = new ViewHolder();
-				holder.layout = (NineImageLayout) convertView.findViewById(R.id.layout_nine_grid);
+				holder.viewGroup = (NineGridViewGroup) convertView.findViewById(R.id.ngv_nine_grid);
+				holder.singleImageView = (ImageView) convertView.findViewById(R.id.iv_single);
+				holder.avatar = (ImageView) convertView.findViewById(R.id.iv_avatar);
+				holder.name = (TextView) convertView.findViewById(R.id.tv_name);
+				holder.content = (TextView) convertView.findViewById(R.id.tv_content);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			
-			if (mList.size() == 1) {
-				holder.layout.setSingleImageWidth(0);
-				holder.layout.setSingleImageHeight(0);
-			}
-			holder.layout.setAdapter(new MyNineImageAdapter(MainActivity.this, mList));
-			
+			Status status = getItem(position);
+			holder.name.setText(status.user.name);
+			holder.content.setText(status.text);
+			ImageLoader.getInstance().displayImage(status.user.profile_image_url, holder.avatar, ImageLoaderUtil.getPhotoImageOption());
+			ArrayList<String> pic_urls = status.pic_urls;
+			if (pic_urls != null && pic_urls.size() > 0) {
+				if (pic_urls.size() == 1) {
+					pic_urls.clear();
+					pic_urls.add(status.original_pic);
+					holder.viewGroup.setAdapter(new MyNineImageAdapter(MainActivity.this, pic_urls));
+				}
+				if (pic_urls.size() == 1) {
+					holder.singleImageView.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View view) {
+							MyToast.show(MainActivity.this, "点击了0");
+						}
+					});
+				}
+			} else {
+				holder.viewGroup.setAdapter(new MyNineImageAdapter(MainActivity.this, mList));
+			} 
 			return convertView;
 		}
 		
 		private class ViewHolder {
-			NineImageLayout layout;
+			NineGridViewGroup viewGroup;
+			ImageView singleImageView;
+			ImageView avatar;
+			TextView name;
+			TextView content;
 		}
 	}
 	
 	
-	private class MyNineImageAdapter extends NineImageAdapter {
+	private class MyNineImageAdapter extends NineGridAdapter {
 		public MyNineImageAdapter(Context context, List<String> imageInfoList) {
 			super(context, imageInfoList);
 		}
 		
 		@Override
-		protected void onImageItemClick(Context context, NineImageLayout nineImageLayout, int position, List<String> imageInfoList) {
+		protected void onImageItemClick(Context context, NineGridViewGroup nineGridViewGroup, int position, List<String> imageInfoList) {
 //			Toast.makeText(context, "点击了" + position, Toast.LENGTH_SHORT).show();
-			MyToast.show(context,"点击了" + position);
+			MyToast.show(context, "点击了" + position);
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	/**
@@ -189,13 +187,18 @@ public class MainActivity extends AppCompatActivity {
 				Logger.json(response);
 				if (response.startsWith("{\"statuses\"")) {
 					// 调用 StatusList#parse 解析字符串成微博列表对象
-					StatusList statuses = StatusList.parse(response);
-					if (statuses != null && statuses.total_number > 0) {
-						MyToast.show(MainActivity.this, "获取微博信息流成功, 条数: " + statuses.statusList.size());
+					mStatuses = StatusList.parse(response);
+					if (mStatuses != null && mStatuses.total_number > 0) {
+						MyToast.show(MainActivity.this, "获取微博信息流成功, 条数: " + mStatuses.statusList.size());
+						
+						mListView.setAdapter(new MyAdapter());
+						
+						
 					}
 				} else if (response.startsWith("{\"created_at\"")) {
 					// 调用 Status#parse 解析字符串成微博对象
 					Status status = Status.parse(response);
+					
 					MyToast.show(MainActivity.this, "发送一送微博成功, id = " + status.id);
 				} else {
 					MyToast.show(MainActivity.this, response);
@@ -205,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
 		
 		@Override
 		public void onWeiboException(WeiboException e) {
-			Logger.e( e.getMessage());
+			Logger.e(e.getMessage());
 			ErrorInfo info = ErrorInfo.parse(e.getMessage());
 			MyToast.show(MainActivity.this, info.toString());
 		}
