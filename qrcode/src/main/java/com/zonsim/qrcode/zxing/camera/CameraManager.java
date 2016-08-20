@@ -266,6 +266,9 @@ public final class CameraManager {
       rect.right = rect.right * cameraResolution.x / screenResolution.x;
       rect.top = rect.top * cameraResolution.y / screenResolution.y;
       rect.bottom = rect.bottom * cameraResolution.y / screenResolution.y;
+      
+      
+      
       framingRectInPreview = rect;
     }
     return framingRectInPreview;
@@ -324,8 +327,10 @@ public final class CameraManager {
       return null;
     }
     // Go ahead and assume it's YUV rather than die.
-    return new PlanarYUVLuminanceSource(data, width, height, rect.left, rect.top,
-                                        rect.width(), rect.height(), false);
+      return new PlanarYUVLuminanceSource(data, width, height, 0, 0,
+		      width, height, false);
+   
+  
   }
 
 }

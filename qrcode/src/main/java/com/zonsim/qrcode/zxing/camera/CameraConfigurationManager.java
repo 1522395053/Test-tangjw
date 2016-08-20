@@ -119,6 +119,7 @@ final class CameraConfigurationManager {
 		display.getSize(theScreenResolution);
 		screenResolution = theScreenResolution;
 		Log.i(TAG, "Screen resolution in current orientation: " + screenResolution);
+		
 		//解决竖屏后图像拉伸问题 tangjw
 		Point screenResolutionForCamera = new Point();
 		screenResolutionForCamera.x = screenResolution.x;

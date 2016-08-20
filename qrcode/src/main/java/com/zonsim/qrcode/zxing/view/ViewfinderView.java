@@ -43,7 +43,6 @@ import java.util.List;
  */
 public final class ViewfinderView extends View {
 	
-	private static final int[] SCANNER_ALPHA = {0, 64, 128, 192, 255, 192, 128, 64};
 	private static final long ANIMATION_DELAY = 8L;
 	private static final int CURRENT_POINT_OPACITY = 0xA0;
 	private static final int MAX_RESULT_POINTS = 20;
@@ -69,10 +68,7 @@ public final class ViewfinderView extends View {
 	 * 中间滑动线的最底端位置
 	 */
 	private int slideBottom;
-	/**
-	 * 中间那条线每次刷新移动的距离
-	 */
-	private static final int SPEEN_DISTANCE = 5;
+
 	/**
 	 * 四个绿色边角对应的长度
 	 */
@@ -143,8 +139,6 @@ public final class ViewfinderView extends View {
 			paint.setAlpha(CURRENT_POINT_OPACITY);
 			canvas.drawBitmap(resultBitmap, null, frame, paint);
 		} else {
-			
-			// Draw a red "laser scanner" line through the middle to show decoding is active
 			
 			//画扫描框边上的角，总共8个部分
 			paint.setColor(Color.parseColor("#65E102"));
