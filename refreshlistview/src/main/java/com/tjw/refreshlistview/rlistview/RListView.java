@@ -23,7 +23,7 @@ public class RListView extends ListView implements OnScrollListener {
 	private OnScrollListener mScrollListener; // user's scroll listener
 	
 	// the interface to trigger refresh and load more.
-	private IXListViewListener mListViewListener;
+	private RListViewListener mListViewListener;
 	
 	// -- header view
 	private RListViewHeader mHeaderView;
@@ -307,7 +307,7 @@ public class RListView extends ListView implements OnScrollListener {
 					invokeOnScrolling();
 					
 				} else if (!mPullRefreshing && !mPullLoad && getLastVisiblePosition() == mTotalItemCount - 1
-						&& (mFooterView.getBottomMargin() > 0 || deltaY < 0)) {
+						&& (mFooterView.getBottomMargin() > 0 || deltaY < 0) && mEnablePullLoad) {
 					// last item, already pulled up or want to pull up.
 					updateFooterHeight(-deltaY / OFFSET_RADIO);
 					
@@ -381,12 +381,11 @@ public class RListView extends ListView implements OnScrollListener {
 		// send to user's listener
 		mTotalItemCount = totalItemCount;
 		if (mScrollListener != null) {
-			mScrollListener.onScroll(view, firstVisibleItem, visibleItemCount,
-					totalItemCount);
+			mScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
 		}
 	}
 	
-	public void setXListViewListener(IXListViewListener l) {
+	public void setRListViewListener(RListViewListener l) {
 		mListViewListener = l;
 	}
 	
@@ -414,7 +413,7 @@ public class RListView extends ListView implements OnScrollListener {
 	/**
 	 * implements this interface to get refresh/load more event.
 	 */
-	public interface IXListViewListener {
+	public interface RListViewListener {
 		void onRefresh();
 		
 		void onLoadMore();
