@@ -301,7 +301,7 @@ public class RListView extends ListView implements OnScrollListener {
 				final float deltaY = ev.getRawY() - mLastY;
 				mLastY = ev.getRawY();
 				if (!mPullLoading && getFirstVisiblePosition() == 0
-						&& (mHeaderView.getVisibleHeight() > 0 || deltaY > 0)) {
+						&& (mHeaderView.getVisibleHeight() > 0 || deltaY > 0)&&mEnablePullRefresh) {
 					// the first item is showing, header has shown or pull down.
 					updateHeaderHeight(deltaY / OFFSET_RADIO);
 					invokeOnScrolling();

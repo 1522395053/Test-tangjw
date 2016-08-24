@@ -115,8 +115,9 @@ public class RListViewHeader extends FrameLayout {
 				mHintTextView.setText("加载中....");
 				break;
 			case STATE_SUCCESS:
-				mHintTextView.setText("刷新成功");
+				mHintTextView.setText("加载中....");
 				mArrowImageView.setVisibility(INVISIBLE);
+				mProgressBar.setVisibility(VISIBLE);
 				if (mShowTimeViewFlag) {
 					SharedPreferences.Editor editor = preferences.edit();//获取编辑器
 					editor.putLong(UPDATED_AT + mId, System.currentTimeMillis());
