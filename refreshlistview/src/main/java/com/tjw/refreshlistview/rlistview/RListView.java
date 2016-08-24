@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Scroller;
 import android.widget.TextView;
 
+import com.tjw.refreshlistview.BannerView;
 import com.tjw.refreshlistview.R;
 
 public class RListView extends ListView implements OnScrollListener {
@@ -83,7 +84,8 @@ public class RListView extends ListView implements OnScrollListener {
 		mHeaderViewContent = (LinearLayout) mHeaderView.findViewById(R.id.xlistview_header_content);
 		mHeaderTimeView = (TextView) mHeaderView.findViewById(R.id.xlistview_header_time);
 		addHeaderView(mHeaderView, null, false);
-		
+		BannerView bannerView = new BannerView(context);
+		addHeaderView(bannerView);
 		// init footer view
 		mFooterView = new RListViewFooter(context);
 		
@@ -93,8 +95,7 @@ public class RListView extends ListView implements OnScrollListener {
 					@Override
 					public void onGlobalLayout() {
 						mHeaderViewHeight = mHeaderViewContent.getHeight();
-						getViewTreeObserver()
-								.removeGlobalOnLayoutListener(this);
+						getViewTreeObserver().removeGlobalOnLayoutListener(this);
 					}
 				});
 		
@@ -204,8 +205,7 @@ public class RListView extends ListView implements OnScrollListener {
 	}
 	
 	private void updateHeaderHeight(float delta) {
-		mHeaderView.setVisibleHeight((int) delta
-				+ mHeaderView.getVisibleHeight());
+		mHeaderView.setVisibleHeight((int) delta + mHeaderView.getVisibleHeight());
 		if (mEnablePullRefresh && !mPullRefreshing) { // 未处于刷新状态，更新箭头
 			if (mHeaderView.getVisibleHeight() > mHeaderViewHeight) {
 				mHeaderView.setState(RListViewHeader.STATE_READY);
@@ -235,8 +235,7 @@ public class RListView extends ListView implements OnScrollListener {
 		}
 		
 		mScrollBack = SCROLLBACK_HEADER;
-		mScroller.startScroll(0, height, 0, finalHeight - height,
-				SCROLL_DURATION);
+		mScroller.startScroll(0, height, 0, finalHeight - height, SCROLL_DURATION);
 		// trigger computeScroll
 		invalidate();
 	}
@@ -263,8 +262,7 @@ public class RListView extends ListView implements OnScrollListener {
 		int bottomMargin = mFooterView.getBottomMargin();
 		if (bottomMargin > 0) {
 			mScrollBack = SCROLLBACK_FOOTER;
-			mScroller.startScroll(0, bottomMargin, 0, -bottomMargin,
-					SCROLL_DURATION);
+			mScroller.startScroll(0, bottomMargin, 0, -bottomMargin, SCROLL_DURATION);
 			invalidate();
 		}
 	}

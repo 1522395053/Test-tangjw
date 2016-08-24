@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
 import com.tjw.refreshlistview.rlistview.RListView;
@@ -20,9 +21,16 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		setContentView(R.layout.activity_main);
 		
 		mRListView = (RListView) findViewById(R.id.rlv_listview);
-//		mRListView.setPullLoadEnable(true);
+		
+		
 		mRListView.setAdapter(new MyAdapter());
 		mRListView.setRListViewListener(this);
+		mRListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				System.out.println(position);
+			}
+		});
 	}
 	
 	@Override
@@ -37,14 +45,8 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 	
 	@Override
 	public void onLoadMore() {
-		/*new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				mRListView.stopLoadMore();
-			}
-		}, 1000L);*/
+		
 	}
-	
 	
 	private class MyAdapter extends BaseAdapter {
 		
@@ -65,12 +67,9 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			
 			if (convertView == null) {
 				convertView = LayoutInflater.from(MainActivity.this).inflate(R.layout.item_listview, parent, false);
 			}
-			
-			
 			return convertView;
 		}
 	}
