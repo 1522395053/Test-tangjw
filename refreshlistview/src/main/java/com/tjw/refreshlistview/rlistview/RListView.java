@@ -57,9 +57,6 @@ public class RListView extends ListView implements OnScrollListener {
 	private boolean mPullLoad;
 	// feature.
 	
-	/**
-	 * @param context
-	 */
 	public RListView(Context context) {
 		super(context);
 		initWithContext(context);
@@ -79,7 +76,7 @@ public class RListView extends ListView implements OnScrollListener {
 		mScroller = new Scroller(context, new DecelerateInterpolator());
 		// XListView need the scroll event, and it will dispatch the event to
 		// user's listener (as a proxy).
-		super.setOnScrollListener(this);
+		setOnScrollListener(this);
 		
 		// init header view
 		mHeaderView = new RListViewHeader(context);
@@ -301,7 +298,7 @@ public class RListView extends ListView implements OnScrollListener {
 				final float deltaY = ev.getRawY() - mLastY;
 				mLastY = ev.getRawY();
 				if (!mPullLoading && getFirstVisiblePosition() == 0
-						&& (mHeaderView.getVisibleHeight() > 0 || deltaY > 0)&&mEnablePullRefresh) {
+						&& (mHeaderView.getVisibleHeight() > 0 || deltaY > 0) && mEnablePullRefresh) {
 					// the first item is showing, header has shown or pull down.
 					updateHeaderHeight(deltaY / OFFSET_RADIO);
 					invokeOnScrolling();
@@ -415,7 +412,6 @@ public class RListView extends ListView implements OnScrollListener {
 	 */
 	public interface RListViewListener {
 		void onRefresh();
-		
 		void onLoadMore();
 	}
 	
@@ -429,29 +425,9 @@ public class RListView extends ListView implements OnScrollListener {
 			mListViewListener.onRefresh();
 		}
 		mScrollBack = SCROLLBACK_HEADER;
-		mScroller.startScroll(0, 0, 0, mHeaderViewHeight,
-				SCROLL_DURATION);
+		mScroller.startScroll(0, 0, 0, mHeaderViewHeight, SCROLL_DURATION);
 		// trigger computeScroll
 		invalidate();
-	}
-	
-	
-	/**
-	 * 设置底部文字
-	 *
-	 * @param text
-	 */
-	public void setFootText(String text) {
-		mFooterView.getmHintView().setText(text);
-	}
-	
-	/**
-	 * 设置头部文字
-	 *
-	 * @param header
-	 */
-	public void setHeaderText(String header) {
-		mHeaderView.getmHintTextView().setText(header);
 	}
 	
 }
