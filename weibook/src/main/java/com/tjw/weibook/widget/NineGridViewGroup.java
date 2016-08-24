@@ -124,17 +124,27 @@ public class NineGridViewGroup extends ViewGroup {
 			final ImageView singleImageView = (ImageView) getChildAt(0);
 			singleImageView.setVisibility(VISIBLE);
 			onDisplayImage(singleImageView, mImageUrlList.get(0));
-			/*singleImageView.post(new Runnable(){
-				@Override
-				public void run(){
-					ImageLoader.getInstance().displayImage(mImageUrlList.get(0), singleImageView, ImageLoaderUtil.getPhotoImageOption());
-				}
-			});*/
+			
 			
 			childHeight = singleImageView.getMeasuredHeight();
 			childWidth = singleImageView.getMeasuredWidth();
 			System.out.println(mImageUrlList.get(0));
-			System.out.println(childWidth+"-----"+childHeight);
+			System.out.println(childWidth + "-----" + childHeight);
+			if (childWidth != 0 && childHeight != 0 && mGridLength != 0) {
+				if (childWidth > childHeight) {
+					
+						childHeight = 3 * mGridLength  / 2;
+						childWidth = 2 * mGridLength;
+					
+				} else if (childWidth < childHeight) {
+						
+						childHeight = 2 * mGridLength;
+						childWidth = 3 * mGridLength  / 2;
+					
+				} else {
+					childWidth = childHeight = 3 * mGridLength / 2;
+				}
+			}
 			singleImageView.layout(getPaddingLeft(), getPaddingTop(), getPaddingLeft() + childWidth, getPaddingTop() + childHeight);
 			
 			return;
@@ -206,13 +216,13 @@ public class NineGridViewGroup extends ViewGroup {
 	private ImageView getImageView(final int position) {
 		ImageView imageView;
 		
-			imageView = mAdapter.createImageView(getContext());
-			imageView.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					mAdapter.onImageItemClick(getContext(), NineGridViewGroup.this, position, mAdapter.getImageUrlList());
-				}
-			});
+		imageView = mAdapter.createImageView(getContext());
+		imageView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mAdapter.onImageItemClick(getContext(), NineGridViewGroup.this, position, mAdapter.getImageUrlList());
+			}
+		});
 //			mChildViewList.add(imageView);
 		
 		return imageView;

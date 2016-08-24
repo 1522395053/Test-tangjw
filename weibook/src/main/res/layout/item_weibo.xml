@@ -49,6 +49,7 @@
             <com.tjw.weibook.widget.RatioImageView
                 android:id="@+id/iv_single"
                 android:layout_width="wrap_content"
+                android:scaleType="centerCrop"
                 android:layout_height="wrap_content"
                 app:ratio="0"
                 android:visibility="visible"/>

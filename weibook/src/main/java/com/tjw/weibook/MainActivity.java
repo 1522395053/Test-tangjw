@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 		// 对statusAPI实例化
 		mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, mAccessToken);
 		
-		mStatusesAPI.friendsTimeline(0L, 0L, 50, 1, false, 2, false, mListener);
+		mStatusesAPI.friendsTimeline(0L, 0L, 20, 1, false, 2, false, mListener);
 		
 	}
 	
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 			if (pic_urls != null && pic_urls.size() > 0) {
 				if (pic_urls.size() == 1) {
 					pic_urls.clear();
-					pic_urls.add(status.original_pic);
+					pic_urls.add(status.bmiddle_pic);
 					holder.viewGroup.setAdapter(new MyNineImageAdapter(MainActivity.this, pic_urls));
 				}
 				if (pic_urls.size() == 1) {
