@@ -1,6 +1,7 @@
 package com.tjw.weibook.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
@@ -24,7 +25,7 @@ public class ImageLoaderUtil {
 //				.showImageForEmptyUri(R.drawable.banner_default).showImageOnFail(R.drawable.banner_default)
 //				.showImageOnLoading(R.drawable.banner_default)
 //				.extraForDownloader(extra)
-//				.bitmapConfig(Bitmap.Config.RGB_565)
+				.bitmapConfig(Bitmap.Config.ARGB_8888 )
 				.imageScaleType(ImageScaleType.NONE).build();
 		return options;
 	}

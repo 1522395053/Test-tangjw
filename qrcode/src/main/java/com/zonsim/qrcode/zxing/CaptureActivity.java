@@ -26,6 +26,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -68,7 +69,7 @@ import java.io.IOException;
  */
 public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
 	
-	private static final String TAG = CaptureActivity.class.getSimpleName();
+	private static final String TAG = "CaptureActivity";
 	
 	private CameraManager cameraManager;
 	private CaptureActivityHandler handler;
@@ -98,13 +99,18 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 		return cameraManager;
 	}
 	
+	
 	@Override
-	public void onCreate(Bundle icicle) {
-		super.onCreate(icicle);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		
 		Window window = getWindow();
 		window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+		
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+			window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+		}
+		
 		setContentView(R.layout.capture);
 		
 		mBtnBack = (Button) findViewById(R.id.button);
@@ -130,7 +136,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	protected void onResume() {
 		super.onResume();
 		
-		cameraManager = new CameraManager(getApplication());
+		cameraManager = new CameraManager(this);
 		
 		viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
 		viewfinderView.setCameraManager(cameraManager);
