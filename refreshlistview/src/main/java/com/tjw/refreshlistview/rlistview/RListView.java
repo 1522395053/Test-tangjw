@@ -366,6 +366,7 @@ public class RListView extends ListView implements OnScrollListener {
 		if (getLastVisiblePosition() == getCount() - 1) {
 			mFooterView.setState(RListViewFooter.STATE_LOADING);
 			startLoadMore();
+			mPullLoading = true;
 		}
 		if (mScrollListener != null) {
 			mScrollListener.onScrollStateChanged(view, scrollState);
