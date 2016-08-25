@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.Scroller;
 import android.widget.TextView;
 
-import com.tjw.refreshlistview.BannerView;
 import com.tjw.refreshlistview.R;
 
 public class RListView extends ListView implements OnScrollListener {
@@ -51,7 +50,7 @@ public class RListView extends ListView implements OnScrollListener {
 	private final static int SCROLLBACK_FOOTER = 1;
 	
 	private final static int SCROLL_DURATION = 400; // scroll back duration
-	private final static int PULL_LOAD_MORE_DELTA = 50; // when pull up >= 50px
+	private final static int PULL_LOAD_MORE_DELTA = 40; // when pull up >= 50px
 	// at bottom, trigger
 	// load more.
 	private final static float OFFSET_RADIO = 1.8f; // support iOS like pull
@@ -77,15 +76,13 @@ public class RListView extends ListView implements OnScrollListener {
 		mScroller = new Scroller(context, new DecelerateInterpolator());
 		// XListView need the scroll event, and it will dispatch the event to
 		// user's listener (as a proxy).
-		setOnScrollListener(this);
+		super.setOnScrollListener(this);
 		
 		// init header view
 		mHeaderView = new RListViewHeader(context);
 		mHeaderViewContent = (LinearLayout) mHeaderView.findViewById(R.id.xlistview_header_content);
 		mHeaderTimeView = (TextView) mHeaderView.findViewById(R.id.xlistview_header_time);
 		addHeaderView(mHeaderView, null, false);
-		BannerView bannerView = new BannerView(context);
-		addHeaderView(bannerView);
 		// init footer view
 		mFooterView = new RListViewFooter(context);
 		
@@ -290,9 +287,10 @@ public class RListView extends ListView implements OnScrollListener {
 				}
 				break;
 			case MotionEvent.ACTION_MOVE:
-				if (mPullRefreshing || mPullLoading) {
+				if (mPullRefreshing) {
 					break;
 				}
+
 				final float deltaY = ev.getRawY() - mLastY;
 				mLastY = ev.getRawY();
 				if (!mPullLoading && getFirstVisiblePosition() == 0
@@ -301,7 +299,7 @@ public class RListView extends ListView implements OnScrollListener {
 					updateHeaderHeight(deltaY / OFFSET_RADIO);
 					invokeOnScrolling();
 					
-				} else if (!mPullRefreshing && !mPullLoad && getLastVisiblePosition() == mTotalItemCount - 1
+				} else if (!mPullRefreshing && !mPullLoad && getLastVisiblePosition() == mTotalItemCount-1
 						&& (mFooterView.getBottomMargin() > 0 || deltaY < 0) && mEnablePullLoad) {
 					// last item, already pulled up or want to pull up.
 					updateFooterHeight(-deltaY / OFFSET_RADIO);
@@ -365,9 +363,14 @@ public class RListView extends ListView implements OnScrollListener {
 	
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
+		if (getLastVisiblePosition() == getCount() - 1) {
+			mFooterView.setState(RListViewFooter.STATE_LOADING);
+			startLoadMore();
+		}
 		if (mScrollListener != null) {
 			mScrollListener.onScrollStateChanged(view, scrollState);
 		}
+		
 	}
 	
 	@Override

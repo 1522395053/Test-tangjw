@@ -8,6 +8,7 @@
     tools:context="com.tjw.refreshlistview.MainActivity">
 
     <com.tjw.refreshlistview.rlistview.RListView
+        android:divider="@null"
         android:id="@+id/rlv_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

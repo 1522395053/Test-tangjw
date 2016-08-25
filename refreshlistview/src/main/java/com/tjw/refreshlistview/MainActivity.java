@@ -3,7 +3,6 @@ package com.tjw.refreshlistview;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,8 +20,9 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		setContentView(R.layout.activity_main);
 		
 		mRListView = (RListView) findViewById(R.id.rlv_listview);
-		
-		
+		mRListView.setPullLoadEnable(true);
+		BannerView bannerView = new BannerView(this);
+		mRListView.addHeaderView(bannerView);
 		mRListView.setAdapter(new MyAdapter());
 		mRListView.setRListViewListener(this);
 		mRListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 				System.out.println(position);
 			}
 		});
+		
 	}
 	
 	@Override
@@ -40,19 +41,24 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 			public void run() {
 				mRListView.stopRefresh();
 			}
-		}, 1000L);
+		}, 3000L);
 	}
 	
 	@Override
 	public void onLoadMore() {
-		
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				mRListView.stopLoadMore();
+			}
+		}, 3000L);
 	}
 	
 	private class MyAdapter extends BaseAdapter {
 		
 		@Override
 		public int getCount() {
-			return 10;
+			return 30;
 		}
 		
 		@Override
@@ -68,7 +74,8 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if (convertView == null) {
-				convertView = LayoutInflater.from(MainActivity.this).inflate(R.layout.item_listview, parent, false);
+//				convertView = LayoutInflater.from(MainActivity.this).inflate(R.layout.item_listview, parent, false);
+				convertView = View.inflate(MainActivity.this, R.layout.item_listview, null);
 			}
 			return convertView;
 		}
