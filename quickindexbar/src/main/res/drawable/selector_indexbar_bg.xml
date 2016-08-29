@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/colorIndexBar" android:state_pressed="true"/>
+    <item android:drawable="@android:color/transparent" android:state_pressed="false"/>
+
+</selector>
+
+   <!-- <?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:state_selected="true" android:drawable="@color/Violet" />
+<item android:state_pressed="true" android:drawable="@color/red" />
+<item android:drawable="@color/white" />
+</selector>-->

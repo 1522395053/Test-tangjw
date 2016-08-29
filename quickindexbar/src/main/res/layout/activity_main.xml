@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tjw.quickindexbar.MainActivity">
+
+
+    <ListView
+        android:id="@+id/lv_contact"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:divider="@drawable/divider_line"
+        android:dividerHeight="1px"
+        android:layout_height="match_parent">
+    </ListView>
+
+    <com.tjw.quickindexbar.widget.QuickIndexBar
+        android:id="@+id/quickindexbar"
+        android:layout_width="24dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/selector_indexbar_bg"
+        android:clickable="true"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        app:textColor="#565656"
+        app:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/tv_index_toast"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_indexbar_toast"
+        android:gravity="center"
+        android:textColor="#FFF"
+        android:textSize="50sp"
+        android:visibility="gone"/>
+
+</RelativeLayout>
