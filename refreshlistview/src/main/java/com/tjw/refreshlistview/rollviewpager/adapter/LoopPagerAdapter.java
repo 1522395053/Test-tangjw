@@ -36,8 +36,8 @@ public abstract class LoopPagerAdapter extends PagerAdapter {
 	
 	@Override
 	public void notifyDataSetChanged() {
-		super.notifyDataSetChanged();
 		initPosition();
+		super.notifyDataSetChanged();
 	}
 	
 	
@@ -45,7 +45,6 @@ public abstract class LoopPagerAdapter extends PagerAdapter {
 	@Override
 	public void registerDataSetObserver(DataSetObserver observer) {
 		super.registerDataSetObserver(observer);
-		System.out.println("哈哈哈");
 		initPosition();
 	}
 	

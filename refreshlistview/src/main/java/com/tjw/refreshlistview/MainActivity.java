@@ -68,9 +68,11 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 	
 	@Override
 	public void onRefresh() {
+		mRollPagerView.pause();
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
+				
 				mImgss = new int[]{
 						R.drawable.img1,
 						R.drawable.img2,
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 				};
 				mBannerAdapter.add(mImgss);
 				mRListView.stopRefresh();
+				mRollPagerView.resume();
 			}
 		}, 2000L);
 	}
