@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		mRListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				System.out.println(position);
+				MyToast.show(MainActivity.this, "点击了" + position);
 			}
 		});
 		
