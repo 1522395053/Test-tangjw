@@ -21,9 +21,9 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 	
 	private RListView mRListView;
 	
-	private int[] mImgs = new int[0];
+	private int[] mImgss = new int[0];
 	private MyBannerAdapter mBannerAdapter;
-	
+	private RollPagerView mRollPagerView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		mRListView = (RListView) findViewById(R.id.rlv_listview);
 //		mRListView.setPullLoadEnable(true);
 		
-		RollPagerView mRollPagerView = new RollPagerView(this);
+		mRollPagerView = new RollPagerView(this);
 		AbsListView.LayoutParams params = new AbsListView.LayoutParams(
 				AbsListView.LayoutParams.MATCH_PARENT,
 				Util.dip2px(this, 180f));
@@ -59,11 +59,11 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		mBannerAdapter = new MyBannerAdapter(mRollPagerView);
 		
 		mRollPagerView.setAdapter(mBannerAdapter);
-		mImgs = new int[]{
+		mImgss = new int[]{
 				R.drawable.img1,
 				R.drawable.img2
 		};
-		mBannerAdapter.add(mImgs);
+		mBannerAdapter.add(mImgss);
 	}
 	
 	@Override
@@ -71,13 +71,13 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				mImgs = new int[]{
+				mImgss = new int[]{
 						R.drawable.img1,
 						R.drawable.img2,
 						R.drawable.img3,
 						R.drawable.img4
 				};
-				mBannerAdapter.add(mImgs);
+				mBannerAdapter.add(mImgss);
 				mRListView.stopRefresh();
 			}
 		}, 2000L);
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		
 		@Override
 		public int getCount() {
-			return 30;
+			return 20;
 		}
 		
 		@Override
@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if (convertView == null) {
-//				convertView = LayoutInflater.from(MainActivity.this).inflate(R.layout.item_listview, parent, false);
 				convertView = View.inflate(MainActivity.this, R.layout.item_listview, null);
 			}
 			return convertView;
@@ -127,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		
 		public void add(int[] imgs) {
 			mImgs = imgs;
-			mCount = mImgs.length;
+			mCount = imgs.length;
 			notifyDataSetChanged();
 		}
 		
