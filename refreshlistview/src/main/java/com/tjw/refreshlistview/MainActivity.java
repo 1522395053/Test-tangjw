@@ -6,19 +6,20 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.jude.rollviewpager.RollPagerView;
-import com.jude.rollviewpager.adapter.LoopPagerAdapter;
-import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.tjw.refreshlistview.rlistview.RListView;
+import com.tjw.refreshlistview.rollviewpager.RollPagerView;
+import com.tjw.refreshlistview.rollviewpager.Util;
+import com.tjw.refreshlistview.rollviewpager.adapter.LoopPagerAdapter;
+import com.tjw.refreshlistview.rollviewpager.hintview.ColorPointHintView;
 
 public class MainActivity extends AppCompatActivity implements RListView.RListViewListener {
 	
 	private RListView mRListView;
-	private RollPagerView mRollPagerView;
 	
 	private int[] mImgs = new int[0];
 	private MyBannerAdapter mBannerAdapter;
@@ -31,9 +32,14 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		
 		mRListView = (RListView) findViewById(R.id.rlv_listview);
 //		mRListView.setPullLoadEnable(true);
-		BannerView bannerView = new BannerView(this);
 		
-		mRListView.addHeaderView(bannerView);
+		RollPagerView mRollPagerView = new RollPagerView(this);
+		AbsListView.LayoutParams params = new AbsListView.LayoutParams(
+				AbsListView.LayoutParams.MATCH_PARENT,
+				Util.dip2px(this, 180f));
+		mRollPagerView.setLayoutParams(params);
+		
+		mRListView.addHeaderView(mRollPagerView);
 		mRListView.setAdapter(new MyAdapter());
 		mRListView.setRListViewListener(this);
 		mRListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -44,22 +50,20 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		});
 		
 		
-		mRollPagerView = (RollPagerView) bannerView.findViewById(R.id.rvp_banner);
 		mRollPagerView.setPlayDelay(3000);
-//		mRollPagerView.setAnimationDurtion(1000);
+		mRollPagerView.setAnimationDurtion(1000);
 		//mRollPagerView.setHintView(new IconHintView(this, R.drawable.point_focus, R.drawable.point_normal));
 		mRollPagerView.setHintView(new ColorPointHintView(this, Color.RED, Color.WHITE));
 //		mRollPagerView.setHintView(new TextHintView(this));
 //		mRollPagerView.setHintView(null);
 		mBannerAdapter = new MyBannerAdapter(mRollPagerView);
-		mRollPagerView.setAdapter(mBannerAdapter);
 		
+		mRollPagerView.setAdapter(mBannerAdapter);
 		mImgs = new int[]{
 				R.drawable.img1,
 				R.drawable.img2
 		};
 		mBannerAdapter.add(mImgs);
-		
 	}
 	
 	@Override

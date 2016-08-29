@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Test-tangjw.iml" filepath="$PROJECT_DIR$/Test-tangjw.iml" />
-      <module fileurl="file://$PROJECT_DIR$/quickindexbar/quickindexbar.iml" filepath="$PROJECT_DIR$/quickindexbar/quickindexbar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/refreshlistview/refreshlistview.iml" filepath="$PROJECT_DIR$/refreshlistview/refreshlistview.iml" />
     </modules>
   </component>
 </project>
