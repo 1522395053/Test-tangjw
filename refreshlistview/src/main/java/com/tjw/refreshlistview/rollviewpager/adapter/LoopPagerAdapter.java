@@ -18,12 +18,13 @@ import java.util.ArrayList;
 public abstract class LoopPagerAdapter extends PagerAdapter {
 	
 	private RollPagerView mViewPager;
+	
 	private ArrayList<View> mViewList = new ArrayList<>();
 	
 	private class LoopHintViewDelegate implements RollPagerView.HintViewDelegate {
 		@Override
 		public void setCurrentPosition(int position, HintView hintView) {
-			if (hintView != null)
+			if (hintView != null && getRealCount() > 0)
 				hintView.setCurrent(position % getRealCount());
 		}
 		
@@ -36,12 +37,16 @@ public abstract class LoopPagerAdapter extends PagerAdapter {
 	
 	@Override
 	public void notifyDataSetChanged() {
+		mViewList.clear();
 		initPosition();
 		super.notifyDataSetChanged();
 	}
 	
+	@Override
+	public int getItemPosition(Object object) {
+		return POSITION_NONE;
+	}
 	
-	//一定要用这个回调,因为它只有第一次设置Adapter才会被回调。而除了这个时候去设置位置都是...ANR
 	@Override
 	public void registerDataSetObserver(DataSetObserver observer) {
 		super.registerDataSetObserver(observer);
@@ -49,16 +54,18 @@ public abstract class LoopPagerAdapter extends PagerAdapter {
 	}
 	
 	private void initPosition() {
-		if (getCount() <= 1) return;
-		int half = Integer.MAX_VALUE / 2;
-		int start = half - half % getRealCount();
-		
+		if (mViewPager.getViewPager().getCurrentItem() == 0 && getRealCount() > 0) {
+			int half = Integer.MAX_VALUE / 2;
+			int start = half - half % getRealCount();
+			setCurrent(start);
+		}
+	}
+	
+	private void setCurrent(int index) {
 		try {
 			Field field = ViewPager.class.getDeclaredField("mCurItem");
 			field.setAccessible(true);
-			//index 为我们想要的第一次就展示的页面index
-			field.set(mViewPager.getViewPager(), start);
-			
+			field.set(mViewPager.getViewPager(), index);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -105,8 +112,9 @@ public abstract class LoopPagerAdapter extends PagerAdapter {
 	@Deprecated
 	@Override
 	public final int getCount() {
-		return getRealCount() <= 1 ? getRealCount() : Integer.MAX_VALUE;
+		return getRealCount() <= 0 ? getRealCount() : Integer.MAX_VALUE;
 	}
 	
 	public abstract int getRealCount();
+	
 }
