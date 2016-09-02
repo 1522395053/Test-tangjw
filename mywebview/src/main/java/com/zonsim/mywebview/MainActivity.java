@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 		} else {
 			mWebViewFragment.loadUrl("http://" + s);
 		}
-		mEditText.setText("");
+//		mEditText.setText("");
 	}
 	
 	/**
