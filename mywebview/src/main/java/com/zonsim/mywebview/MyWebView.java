@@ -30,9 +30,6 @@ public class MyWebView extends Fragment {
 	private WebChromeClient.CustomViewCallback mCustomViewCallback;
 	private String mUrl;
 	
-	public WebView getWebView() {
-		return mWebView;
-	}
 	
 	public static MyWebView newInstance(String url) {
 		MyWebView fragment = new MyWebView();
@@ -142,12 +139,8 @@ public class MyWebView extends Fragment {
 	@Override
 	public void onPause() {
 		super.onPause();
-		try {
-			mWebView.getClass().getMethod("onPause").invoke(mWebView,(Object[])null);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-//		mWebView.onPause();
+	
+		mWebView.onPause();
 		mWebView.pauseTimers();
 		
 	}
@@ -155,11 +148,8 @@ public class MyWebView extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		try {
-			mWebView.getClass().getMethod("onResume").invoke(mWebView,(Object[])null);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
+		mWebView.onResume();
 		mWebView.resumeTimers();
 	}
 	
@@ -291,5 +281,10 @@ public class MyWebView extends Fragment {
 			getActivity().getWindow().setAttributes(attr);
 			getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 		}
+	}
+	
+	
+	public void loadUrl(String url) {
+		mWebView.loadUrl(url);
 	}
 }
