@@ -16,6 +16,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 /**
  * CopyRight
@@ -29,6 +30,7 @@ public class MyWebView extends Fragment {
 	private int mOriginalOrientation;
 	private WebChromeClient.CustomViewCallback mCustomViewCallback;
 	private String mUrl;
+	private ProgressBar mProgressBar;
 	
 	
 	public static MyWebView newInstance(String url) {
@@ -49,6 +51,9 @@ public class MyWebView extends Fragment {
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		
+		mProgressBar =(ProgressBar) getActivity().findViewById(R.id.progressBar);
+		
 		mWebView = new WebView(getContext());
 		
 		initWebView();
@@ -129,6 +134,17 @@ public class MyWebView extends Fragment {
 				mCustomViewCallback = null;
 				
 			}
+			
+			@Override
+			public void onProgressChanged(WebView view, int newProgress) {
+				super.onProgressChanged(view, newProgress);
+				if (newProgress < 100) {
+					mProgressBar.setVisibility(View.VISIBLE);
+				} else {
+					mProgressBar.setVisibility(View.GONE);
+				}
+				mProgressBar.setProgress(newProgress);
+			}
 		});
 		
 		mWebView.loadUrl(mUrl);
@@ -170,7 +186,6 @@ public class MyWebView extends Fragment {
 	private void initWebView() {
 		
 		WebSettings settings = mWebView.getSettings();
-		
 		
 		//设置 WebView 是否可以运行 JavaScript
 		settings.setJavaScriptEnabled(true);
