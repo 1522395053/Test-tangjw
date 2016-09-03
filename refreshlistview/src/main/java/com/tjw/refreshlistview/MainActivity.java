@@ -1,15 +1,20 @@
 package com.tjw.refreshlistview;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.SparseArray;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.tjw.refreshlistview.rlistview.RListView;
 import com.tjw.refreshlistview.rollviewpager.RollPagerView;
@@ -24,14 +29,26 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 	private int[] mImgss = new int[0];
 	private MyBannerAdapter mBannerAdapter;
 	private RollPagerView mRollPagerView;
+	private LinearLayout mTitleBar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.activity_main);
+		
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+		    this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//		    this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//			getWindow().addFlags(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+		}
+		
+		mTitleBar = (LinearLayout) findViewById(R.id.ll_title_bar);
 		
 		mRListView = (RListView) findViewById(R.id.rlv_listview);
 //		mRListView.setPullLoadEnable(true);
+		
+		initListener();
 		
 		mRollPagerView = new RollPagerView(this);
 		AbsListView.LayoutParams params = new AbsListView.LayoutParams(
@@ -66,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		mBannerAdapter.add(mImgss);
 	}
 	
+	
+	
 	@Override
 	public void onRefresh() {
 		mRollPagerView.pause();
@@ -96,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		}, 2000L);
 	}
 	
+	
 	private class MyAdapter extends BaseAdapter {
 		
 		@Override
@@ -120,13 +140,13 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 			}
 			return convertView;
 		}
+		
 	}
-	
 	private class MyBannerAdapter extends LoopPagerAdapter {
 		
 		private int[] mImgs = new int[0];
-		private int mCount = 0;
 		
+		private int mCount = 0;
 		public void add(int[] imgs) {
 			mImgs = imgs;
 			mCount = imgs.length;
@@ -150,5 +170,63 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		public int getRealCount() {
 			return mCount;
 		}
+		
+	}
+	private void fullScreen(boolean enable) {
+		if (enable) {
+			WindowManager.LayoutParams lp = getWindow().getAttributes();
+			lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+			getWindow().setAttributes(lp);
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+		} else {
+			WindowManager.LayoutParams attr = getWindow().getAttributes();
+			attr.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
+			getWindow().setAttributes(attr);
+			getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+		}
+	}
+	
+	
+	
+	
+	private void initListener() {
+		mRListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+			private SparseArray recordSp = new SparseArray(0);
+			private int mCurrentfirstVisibleItem = 0;
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+			}
+			
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+				int deltaHeight = -mRollPagerView.getTop();
+				
+				System.out.println("高度" + deltaHeight);
+				
+				if (deltaHeight > 200) {
+					MainActivity.this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_VISIBLE);
+					mTitleBar.setVisibility(View.VISIBLE);
+					fullScreen(false);
+				} else {
+					MainActivity.this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+					mTitleBar.setVisibility(View.GONE);
+					fullScreen(true);
+				} 
+				
+			}
+		
+		});
+		
+		
+		mRListView.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				System.out.println(event.getRawY());
+				System.out.println(event.getY());
+				return false;
+			}
+		});
+		
 	}
 }

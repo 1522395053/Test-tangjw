@@ -25,6 +25,11 @@ import android.widget.ProgressBar;
 public class MyWebView extends Fragment {
 	
 	private WebView mWebView;
+	
+	public WebView getWebView() {
+		return mWebView;
+	}
+	
 	private View mCustomView;
 	private int mOriginalSystemUiVisibility;
 	private int mOriginalOrientation;

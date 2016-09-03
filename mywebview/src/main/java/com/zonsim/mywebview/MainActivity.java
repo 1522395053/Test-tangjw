@@ -17,15 +17,17 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_main);
 		mEditText = (EditText) findViewById(R.id.editText);
+		mEditText.setText("http://118.145.26.214:8186/lianyi/MtsMeeting/toMaterialDetail.do?mid=153&uid=646&like=0");
 		init();
 	}
 	
 	private void init() {
-		
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		mWebViewFragment = MyWebView.newInstance("http://m.uczzd.cn/webview/article/news.html?app=uc-iflow&aid=10898359130797346774&cid=100&zzd_from=uc-iflow&uc_param_str=dndsfrvesvntnwpfgi&ut=KvkEWYUWagFjNX0VvzVwd1xwHXBuFcVhSmf5H97KmCAhPA%3D%3D&gp=KvkQ1q0D42%2Bdsp%2B%2FP5pVy6OpYTlxwJPuUvPTTuvW6XmNGA%3D%3D&recoid=12209850584064359653&rd_type=share&tt_from=uc_btn&btifl=100&pagetype=share&refrd_id=");
+		mWebViewFragment = MyWebView.newInstance("file:///android_asset/index.html");
+		mWebViewFragment = MyWebView.newInstance("http://118.145.26.214:8186/lianyi/MtsMeeting/toMaterialDetail.do?mid=153&uid=646&like=0");
 		
 		
 		fragmentManager.beginTransaction()
@@ -63,10 +65,21 @@ public class MainActivity extends AppCompatActivity {
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			if (getCurrentFocus() != null && getCurrentFocus().getWindowToken() != null) {
-				((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-						InputMethodManager.HIDE_NOT_ALWAYS);
+				((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).
+						hideSoftInputFromWindow(
+								getCurrentFocus().getWindowToken(), 
+								InputMethodManager.HIDE_NOT_ALWAYS);
 			}
 		}
 		return super.onTouchEvent(event);
+	}
+	
+	@Override
+	public void onBackPressed() {
+		if (mWebViewFragment.getWebView().canGoBack()) {
+			mWebViewFragment.getWebView().goBack();
+		} else {
+			super.onBackPressed();
+		}
 	}
 }
