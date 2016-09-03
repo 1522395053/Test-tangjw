@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +36,9 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 
 		setContentView(R.layout.activity_main);
 		
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-		    this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-//		    this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+//		    this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+		    this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 //			getWindow().addFlags(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 		}
 		
@@ -191,8 +190,7 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 	
 	private void initListener() {
 		mRListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-			private SparseArray recordSp = new SparseArray(0);
-			private int mCurrentfirstVisibleItem = 0;
+
 			@Override
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -205,13 +203,11 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 				System.out.println("高度" + deltaHeight);
 				
 				if (deltaHeight > 200) {
-					MainActivity.this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_VISIBLE);
 					mTitleBar.setVisibility(View.VISIBLE);
-					fullScreen(false);
+//					fullScreen(false);
 				} else {
-					MainActivity.this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-					mTitleBar.setVisibility(View.GONE);
-					fullScreen(true);
+					mTitleBar.setVisibility(View.INVISIBLE);
+//					fullScreen(true);
 				} 
 				
 			}
