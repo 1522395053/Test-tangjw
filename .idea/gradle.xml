@@ -8,12 +8,16 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/bottombar" />
+            <option value="$PROJECT_DIR$/picasso" />
             <option value="$PROJECT_DIR$/refreshlistview" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/bottombar" />
+            <option value="$PROJECT_DIR$/picasso" />
             <option value="$PROJECT_DIR$/refreshlistview" />
           </set>
         </option>

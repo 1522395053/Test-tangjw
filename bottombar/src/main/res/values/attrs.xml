@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="BottomBar">
+        <attr name="text" format="string"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="srcChecked" format="reference"/>
+        <attr name="srcNormal" format="reference"/>
+        <attr name="textColorChecked" format="color"/>
+        <attr name="textColorNormal" format="color"/>
+        <attr name="checked" format="boolean"/>
+    </declare-styleable>
+</resources>

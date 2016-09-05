@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/selectableItemBackground"
+
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/bottom_bar_icon"
+            android:layout_width="36dp"
+            android:layout_height="28dp"
+            android:layout_centerInParent="true"/>
+
+        <View
+            android:id="@+id/bottom_bar_point"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_alignEnd="@+id/bottom_bar_icon"
+            android:layout_alignRight="@+id/bottom_bar_icon"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/shape_red_point"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/bottom_bar_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+
+

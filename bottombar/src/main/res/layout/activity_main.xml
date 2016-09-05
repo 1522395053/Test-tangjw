@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tjw.bottombar.MainActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="point"
+        android:onClick="point"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+
+        <com.tjw.bottombar.BottomBar
+            android:id="@+id/bb_button1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:checked="true"
+            app:srcChecked="@drawable/ic_bottombar_meeting_pressed"
+            app:srcNormal="@drawable/ic_bottombar_meeting_normal"
+            app:text="会议"
+            app:textColorChecked="@color/colorTextChecked"
+            app:textColorNormal="@color/colorTextNormal">
+
+        </com.tjw.bottombar.BottomBar>
+
+        <com.tjw.bottombar.BottomBar
+            android:id="@+id/bb_button2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcChecked="@drawable/ic_bottombar_contact_pressed"
+            app:srcNormal="@drawable/ic_bottombar_contact_normal"
+            app:text="人脉"
+            app:textColorChecked="@color/colorTextChecked"
+            app:textColorNormal="@color/colorTextNormal">
+
+        </com.tjw.bottombar.BottomBar>
+
+        <com.tjw.bottombar.BottomBar
+            android:id="@+id/bb_button3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcChecked="@drawable/ic_bottombar_mine_pressed"
+            app:srcNormal="@drawable/ic_bottombar_mine_normal"
+            app:text="我的"
+            app:textColorChecked="@color/colorTextChecked"
+            app:textColorNormal="@color/colorTextNormal">
+
+        </com.tjw.bottombar.BottomBar>
+
+    </LinearLayout>
+
+</RelativeLayout>
