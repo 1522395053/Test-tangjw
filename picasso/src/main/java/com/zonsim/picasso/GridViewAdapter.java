@@ -46,7 +46,7 @@ public class GridViewAdapter extends BaseAdapter {
 		
 		Picasso.with(context)
 				.load(getItem(i))
-				.transform(new FilletTransform(40,20))
+				.transform(new FilletTransform(40, 20))
 				.placeholder(R.mipmap.ic_launcher)
 				.error(R.mipmap.ic_launcher)
 				.fit()
