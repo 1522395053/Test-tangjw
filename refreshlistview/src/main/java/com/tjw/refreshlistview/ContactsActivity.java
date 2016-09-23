@@ -1,6 +1,7 @@
 package com.tjw.refreshlistview;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,7 +15,7 @@ import com.tjw.refreshlistview.rlistview.RListView;
  * ^-^
  * Created by tang-jw on 9/3.
  */
-public class ContactsActivity extends AppCompatActivity {
+public class ContactsActivity extends AppCompatActivity implements RListView.RListViewListener {
 	
 	private RListView mListView;
 	
@@ -27,6 +28,22 @@ public class ContactsActivity extends AppCompatActivity {
 		mListView = (RListView) findViewById(R.id.rlv_listview);
 		
 		mListView.setAdapter(new MyAdapter());
+		
+		mListView.setRListViewListener(this);
+	}
+	
+	@Override
+	public void onRefresh() {
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				mListView.stopRefresh();
+			}
+		}, 1000L);
+	}
+	
+	@Override
+	public void onLoadMore() {
 		
 	}
 	
@@ -60,7 +77,9 @@ public class ContactsActivity extends AppCompatActivity {
 			viewHolder.ll_month = (LinearLayout) convertView.findViewById(R.id.ll_month);
 			if (position % 2 != 0) {
 				viewHolder.ll_month.setVisibility(View.GONE);
-			}
+			} else {
+				viewHolder.ll_month.setVisibility(View.VISIBLE);
+			} 
 			return convertView;
 		}
 		

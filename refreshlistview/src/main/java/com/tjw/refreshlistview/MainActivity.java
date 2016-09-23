@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -57,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		
 		mRListView.addHeaderView(mRollPagerView);
 		mRListView.setAdapter(new MyAdapter());
+		mRListView.setPullLoadEnable(true);
 		mRListView.setRListViewListener(this);
 		mRListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -146,13 +146,13 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		private int[] mImgs = new int[0];
 		
 		private int mCount = 0;
-		public void add(int[] imgs) {
+		private void add(int[] imgs) {
 			mImgs = imgs;
 			mCount = imgs.length;
 			notifyDataSetChanged();
 		}
 		
-		public MyBannerAdapter(RollPagerView viewPager) {
+		private MyBannerAdapter(RollPagerView viewPager) {
 			super(viewPager);
 		}
 		
@@ -171,6 +171,8 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		}
 		
 	}
+	
+	
 	private void fullScreen(boolean enable) {
 		if (enable) {
 			WindowManager.LayoutParams lp = getWindow().getAttributes();
@@ -200,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 				int deltaHeight = -mRollPagerView.getTop();
 				
-				System.out.println("高度" + deltaHeight);
+//				System.out.println("高度" + deltaHeight);
 				
 				if (deltaHeight > 200) {
 					mTitleBar.setVisibility(View.VISIBLE);
@@ -214,15 +216,6 @@ public class MainActivity extends AppCompatActivity implements RListView.RListVi
 		
 		});
 		
-		
-		mRListView.setOnTouchListener(new View.OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				System.out.println(event.getRawY());
-				System.out.println(event.getY());
-				return false;
-			}
-		});
 		
 	}
 }

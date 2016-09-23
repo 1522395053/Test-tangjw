@@ -293,7 +293,8 @@ public class RListView extends ListView implements OnScrollListener {
 
 				final float deltaY = ev.getRawY() - mLastY;
 				mLastY = ev.getRawY();
-				if (!mPullLoading && getFirstVisiblePosition() == 0
+				
+				if (/*!mPullLoading &&*/ getFirstVisiblePosition() == 0
 						&& (mHeaderView.getVisibleHeight() > 0 || deltaY > 0) && mEnablePullRefresh) {
 					// the first item is showing, header has shown or pull down.
 					updateHeaderHeight(deltaY / OFFSET_RADIO);
@@ -330,9 +331,6 @@ public class RListView extends ListView implements OnScrollListener {
 					}
 					
 				}
-//                if (mHeaderView.getVisibleHeight() > 0) {
-//                    LogUtils.i("mHeaderView,Up:"+mHeaderView.getVisibleHeight());
-//                }
 				resetFooterHeight();
 				resetHeaderHeight();
 				
@@ -363,10 +361,12 @@ public class RListView extends ListView implements OnScrollListener {
 	
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
+		
 		if (getLastVisiblePosition() == getCount() - 1) {
-			mFooterView.setState(RListViewFooter.STATE_LOADING);
-			startLoadMore();
-			mPullLoading = true;
+			if (mPullLoading) {
+				mFooterView.setState(RListViewFooter.STATE_LOADING);
+				startLoadMore();
+			}
 		}
 		if (mScrollListener != null) {
 			mScrollListener.onScrollStateChanged(view, scrollState);

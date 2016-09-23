@@ -3,5 +3,5 @@
 // 否则gradle 不知道要加载哪些项目。这个文件的代码在初始化阶段就会被执行。
 
 
-include ':refreshlistview', ':picasso', ':bottombar'//,':mywebview'//,'  ':quickindexbar'//':weibook'//':sendweibo', ':qrcode'//':calendersign'  ':sqlite' , ':app',':guidepage',  ':jpush'
+include ':refreshlistview'//':guidepage'//, ':picasso', ':bottombar'//,':mywebview'//,'  ':quickindexbar'//':weibook'//':sendweibo', ':qrcode'//':calendersign'  ':sqlite' , ':app',':guidepage',  ':jpush'
 //include ':weiboSDK'
