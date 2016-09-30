@@ -8,7 +8,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/refreshlistview" />
+            <option value="$PROJECT_DIR$/picasso" />
+            <option value="$PROJECT_DIR$/weiboSDK" />
+            <option value="$PROJECT_DIR$/weibook" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
