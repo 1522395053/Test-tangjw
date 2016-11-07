@@ -39,6 +39,7 @@ public class QuickIndexBar extends View {
 	 * 默认的26个大写字母
 	 */
 	private static final String[] LETTERS = new String[]{
+			"↑",
 			"A", "B", "C", "D", "E", "F",
 			"G", "H", "I", "J", "K", "L",
 			"M", "N", "O", "P", "Q", "R",

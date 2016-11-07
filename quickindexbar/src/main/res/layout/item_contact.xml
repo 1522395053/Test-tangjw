@@ -20,6 +20,5 @@
         android:layout_height="53dp"
         android:gravity="center_vertical"
         android:paddingLeft="13dp"
-        android:text="宋江"
         android:textSize="22sp" />
 </LinearLayout>

@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	private class ViewHolder {
-		protected TextView tv_index;
-		protected TextView tv_name;
+		 TextView tv_index;
+		 TextView tv_name;
 	}
 }
