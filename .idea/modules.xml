@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Test-tangjw.iml" filepath="$PROJECT_DIR$/Test-tangjw.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Test-tangjw.iml" filepath="$PROJECT_DIR$/Test-tangjw.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qrcode/qrcode.iml" filepath="$PROJECT_DIR$/qrcode/qrcode.iml" />
       <module fileurl="file://$PROJECT_DIR$/wifimac/wifimac.iml" filepath="$PROJECT_DIR$/wifimac/wifimac.iml" />
     </modules>
   </component>
